@@ -49,6 +49,7 @@ public class UserAppService {
         userApp.setRole(roleRepository.findByName("USER_APP"));
         userApp.setType(item.getType());
         userApp.setDocument(item.getDocument());
+        userApp.setPhone(item.getPhone());
         return repository.save(userApp);
     }
 

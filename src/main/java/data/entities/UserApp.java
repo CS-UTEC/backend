@@ -24,6 +24,8 @@ public class UserApp implements Serializable {
 
     private String type;
 
+    private String phone;
+
     private Boolean canMove;
 
     @DBRef
@@ -61,6 +63,14 @@ public class UserApp implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getPhone() {
+        return this.phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public Boolean getCanMove() {
