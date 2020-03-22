@@ -2,13 +2,13 @@ package data.models;
 
 public class AuthToken {
 
-    private Long id;
+    private Long userId;
     private String token;
 
     public AuthToken() {}
 
-    public AuthToken(Long id, String token){
-        this.id = id;
+    public AuthToken(Long userId, String token){
+        this.userId = userId;
         this.token = token;
     }
 
@@ -24,11 +24,11 @@ public class AuthToken {
         this.token = token;
     }
 
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

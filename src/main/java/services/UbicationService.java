@@ -57,6 +57,4 @@ public class UbicationService {
     public void delete(Long id){
         repository.delete(findOne(id));
     }
-
-
 }

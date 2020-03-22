@@ -58,6 +58,4 @@ public class RoleService {
     public void delete(Long id){
         repository.delete(findOne(id));
     }
-
-
 }
