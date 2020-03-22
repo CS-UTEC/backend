@@ -1,7 +1,7 @@
 package services;
 
-import data.entities.Usuario;
-import data.repositories.UsuarioRepository;
+import data.entities.UserApp;
+import data.repositories.UserAppRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,33 +11,33 @@ import java.util.List;
 
 @Service
 @Transactional
-public class UsuarioService {
+public class UserAppService {
 
     @Autowired
-    private UsuarioRepository repository;
+    private UserAppRepository repository;
     
     @Autowired
     private SequenceGeneratorService sequenceGeneratorService;
 
-    public List<Usuario> findAll(){
-        List<Usuario> items = new ArrayList<>();
+    public List<UserApp> findAll(){
+        List<UserApp> items = new ArrayList<>();
 
-        for (Usuario item :repository.findAll()) {
+        for (UserApp item :repository.findAll()) {
             items.add(item);
         }
         return items;
     }
 
-    public Usuario findOne(long id){
+    public UserApp findOne(long id){
         return repository.findById(id).get();
     }
 
-    public Usuario create(Usuario item){
-        item.setId(sequenceGeneratorService.generateSequence(Usuario.SEQUENCE_NAME));
+    public UserApp create(UserApp item){
+        item.setId(sequenceGeneratorService.generateSequence(UserApp.SEQUENCE_NAME));
         return repository.save(item);
     }
 
-    public Usuario update(Usuario item){
+    public UserApp update(UserApp item){
         return repository.save(item);
     }
 
@@ -45,7 +45,7 @@ public class UsuarioService {
         repository.delete(findOne(id));
     }
 
-    public Usuario findOneByEmail(String email){
-        return repository.findUsuarioByEmail(email);
+    public UserApp findOneByDocumentAndType(String document, String type){
+        return repository.findByDocumentAndType(document, type);
     }
 }

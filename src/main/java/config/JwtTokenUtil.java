@@ -1,6 +1,7 @@
 package config;
 
-import data.entities.Usuario;
+import data.entities.UserApp;
+import data.entities.UserWeb;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -44,8 +45,13 @@ public class JwtTokenUtil implements Serializable {
         return expiration.before(new Date());
     }
 
-    public String generateToken(Usuario user) {
-        return doGenerateToken(user.getEmail());
+    public String generateTokenForWeb(UserWeb user) {
+        return doGenerateToken(user.getUsername());
+    }
+
+    public String generateTokenForApp(UserApp user) {
+        //Checkear
+        return doGenerateToken(user.getDocument());
     }
 
     private String doGenerateToken(String subject) {

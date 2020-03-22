@@ -9,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import services.AuthService;
 import services.RoleService;
 import data.entities.Role;
-import data.entities.Usuario;
-
+import data.entities.UserWeb;
 
 @RestController
 @RequestMapping("/test")
@@ -34,8 +33,8 @@ public class TestDataController {
 
         Role role = roleService.findOneByName("USER_WEB");
 
-        Usuario usuario = new Usuario();
-        usuario.setEmail("admin@cs");
+        UserWeb usuario = new UserWeb();
+        usuario.setUsername("admin@cs");
         usuario.setPassword("qwerty");
         usuario.setRole(role);
         authService.save(usuario);

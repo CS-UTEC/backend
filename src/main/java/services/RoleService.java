@@ -28,7 +28,7 @@ public class RoleService {
     }
 
     public Role findOneByName(String name){
-        return repository.findRolByName(name);
+        return repository.findByName(name);
     }
 
     public Role findOne(long id){

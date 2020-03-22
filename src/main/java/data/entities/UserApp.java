@@ -8,26 +8,28 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "usuario")
-public class Usuario implements Serializable {
+@Document(collection = "user_app")
+public class UserApp implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
     @Transient
-    public static final String SEQUENCE_NAME = "usuario_sequence";
+    public static final String SEQUENCE_NAME = "user_app_sequence";
 
     @Id
     private long id;
 
     @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
-    private String email;
+    private String document;
 
-    private String password;
+    private String type;
+
+    private Boolean canMove;
 
     @DBRef
     private Role role;
 
-    public Usuario() {}
+    public UserApp() {}
 
     public Long getId() {
         return id;
@@ -45,19 +47,27 @@ public class Usuario implements Serializable {
         return role;
     }
 
-    public String getEmail(){
-        return this.email;
+    public String getDocument(){
+        return this.document;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setDocument(String document) {
+        this.document = document;
     }
 
-    public String getPassword() {
-        return this.password;
+    public String getType() {
+        return this.type;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Boolean getCanMove() {
+        return this.canMove;
+    }
+
+    public void setCanMove(Boolean canMove) {
+        this.canMove = canMove;
     }
 }

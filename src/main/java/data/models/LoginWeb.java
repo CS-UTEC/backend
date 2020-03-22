@@ -1,12 +1,11 @@
-package data.entities;
+package data.models;
 
-public class Login {
+public class LoginWeb {
 
     private String username;
     private String password;
-    private String token;
 
-    protected Login() {}
+    protected LoginWeb() {}
 
     public String getUsername() {
         return username;
@@ -22,13 +21,5 @@ public class Login {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 }
