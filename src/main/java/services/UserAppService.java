@@ -1,6 +1,7 @@
 package services;
 
 import data.entities.UserApp;
+import data.models.LoginApp;
 import data.repositories.RoleRepository;
 import data.repositories.UserAppRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,15 @@ public class UserAppService {
         item.setId(sequenceGeneratorService.generateSequence(UserApp.SEQUENCE_NAME));
         item.setRole(roleRepository.findByName("USER_APP"));
         return repository.save(item);
+    }
+
+    public UserApp create(LoginApp item){
+        UserApp userApp = new UserApp();
+        userApp.setId(sequenceGeneratorService.generateSequence(UserApp.SEQUENCE_NAME));
+        userApp.setRole(roleRepository.findByName("USER_APP"));
+        userApp.setType(item.getType());
+        userApp.setDocument(item.getDocument());
+        return repository.save(userApp);
     }
 
     public UserApp update(UserApp item){
