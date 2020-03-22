@@ -1,7 +1,7 @@
 package services;
 
-import data.entities.Rol;
-import data.repositories.RolRepository;
+import data.entities.Role;
+import data.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,34 +10,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class RolService {
+public class RoleService {
 
     @Autowired
-    private RolRepository repository;
+    private RoleRepository repository;
 
-    public List<Rol> findAll(){
-        List<Rol> items = new ArrayList<>();
+    @Autowired
+    private SequenceGeneratorService sequenceGeneratorService;
 
-        for (Rol item :repository.findAll()) {
+    public List<Role> findAll(){
+        List<Role> items = new ArrayList<>();
+
+        for (Role item :repository.findAll()) {
             items.add(item);
         }
         return items;
     }
 
-    public Rol findOneByName(String name){
+    public Role findOneByName(String name){
         return repository.findRolByName(name);
     }
 
-    public Rol findOne(long id){
+    public Role findOne(long id){
         return repository.findById(id).get();
     }
 
-    public Rol create(Rol item){
+    public Role create(Role item){
+        item.setId(sequenceGeneratorService.generateSequence(Role.SEQUENCE_NAME));
         return repository.save(item);
     }
 
-    public Rol update(Rol item){
-        Rol i = repository.findById(item.getId()).get();
+    public Role update(Role item){
+        Role i = repository.findById(item.getId()).get();
         for (Field f : item.getClass().getDeclaredFields()) {
             f.setAccessible(true);
             try {

@@ -2,25 +2,30 @@ package data.entities;
 
 import java.io.Serializable;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.index.IndexDirection;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "usuario")
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
+    @Transient
+    public static final String SEQUENCE_NAME = "usuario_sequence";
 
     @Id
     private long id;
 
+    @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
     private String email;
 
     private String password;
 
-    /*
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rolId", nullable = true)
-    private Rol rol;
-    */
+    @DBRef
+    private Role role;
 
     public Usuario() {}
 
@@ -32,15 +37,13 @@ public class Usuario implements Serializable {
         this.id = id;
     }
     
-    /*
-    public void setRol(Rol rol) {
-        this.rol = rol;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
-    public Rol getRol() {
-        return rol;
+    public Role getRol() {
+        return role;
     }
-    */
 
     public String getEmail(){
         return this.email;
