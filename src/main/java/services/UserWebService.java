@@ -15,6 +15,9 @@ public class UserWebService {
 
     @Autowired
     private UserWebRepository repository;
+
+    @Autowired
+    private RoleRepository roleRepository;
     
     @Autowired
     private SequenceGeneratorService sequenceGeneratorService;
@@ -34,6 +37,7 @@ public class UserWebService {
 
     public UserWeb create(UserWeb item){
         item.setId(sequenceGeneratorService.generateSequence(UserWeb.SEQUENCE_NAME));
+        item.setRole(roleRepository.findByName("USER_WEB"));
         return repository.save(item);
     }
 
