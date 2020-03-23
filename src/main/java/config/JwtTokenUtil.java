@@ -5,6 +5,7 @@ import data.entities.UserWeb;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +29,11 @@ public class JwtTokenUtil implements Serializable {
         return getClaimFromToken(token, Claims::getExpiration);
     }
 
+    public String getRoleFromToken(String token) {
+        final Claims claims = getAllClaimsFromToken(token);
+        return claims.get("role", String.class);
+    }
+
     public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = getAllClaimsFromToken(token);
         return claimsResolver.apply(claims);
@@ -46,17 +52,16 @@ public class JwtTokenUtil implements Serializable {
     }
 
     public String generateTokenForWeb(UserWeb user) {
-        return doGenerateToken(user.getUsername());
+        return doGenerateToken(user.getUsername(), user.getRol().getName());
     }
 
     public String generateTokenForApp(UserApp user) {
-        //Checkear
-        return doGenerateToken(user.getDocument());
+        return doGenerateToken(user.getDocument(), user.getRol().getName());
     }
 
-    private String doGenerateToken(String subject) {
-
+    private String doGenerateToken(String subject, String role) {
         Claims claims = Jwts.claims().setSubject(subject);
+        claims.put("role", role);
 
         return Jwts.builder()
                 .setClaims(claims)

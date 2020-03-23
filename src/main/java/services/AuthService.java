@@ -1,7 +1,9 @@
 package services;
 
 import data.entities.Role;
+import data.entities.UserApp;
 import data.entities.UserWeb;
+import data.repositories.UserAppRepository;
 import data.repositories.UserWebRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,18 +26,42 @@ public class AuthService implements UserDetailsService {
     private UserWebRepository webRepository;
 
     @Autowired
+    private UserAppRepository appRepository;
+
+    @Autowired
     private BCryptPasswordEncoder bcryptEncoder;
 
     @Autowired
     private SequenceGeneratorService sequenceGeneratorService;
 
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserWeb user = findUserByUsername(username);
-        if(user == null){
+    public UserDetails loadUserByUsername(String data) throws UsernameNotFoundException {
+        String role = data.substring(0, 8);
+        String username = data.substring(8, data.length());
+
+        List<GrantedAuthority> authorities = null;
+        Boolean isUserWeb = role.equals("USER_WEB");
+        Boolean isUserApp = role.equals("USER_APP");
+
+        if (!isUserWeb && !isUserApp) {
+            role = "USER_WEB";
+            username = data;
+        }
+        
+        if (isUserApp) {
+            UserApp userApp = findByDocument(username);
+            if(userApp == null){
+                throw new UsernameNotFoundException("Invalid document.");
+            }
+            authorities = getUserAuthority(userApp.getRol());
+            return buildUserForAuthApp(userApp, authorities);
+        }
+
+        UserWeb userWeb = findUserByUsername(username);
+        if(userWeb == null){
             throw new UsernameNotFoundException("Invalid username or password.");
         }
-        List<GrantedAuthority> authorities = getUserAuthority(user.getRol());
-        return buildUserForAuthentication(user, authorities);
+        authorities = getUserAuthority(userWeb.getRol());
+        return buildUserForAuthWeb(userWeb, authorities);
     }
 
     private List<GrantedAuthority> getUserAuthority(Role userRoles) {
@@ -49,8 +75,16 @@ public class AuthService implements UserDetailsService {
         return webRepository.findByUsername(username);
     }
 
-    private UserDetails buildUserForAuthentication(UserWeb usuario, List<GrantedAuthority> authorities) {
+    public UserApp findByDocument(String document) {
+        return appRepository.findByDocument(document);
+    }
+
+    private UserDetails buildUserForAuthWeb(UserWeb usuario, List<GrantedAuthority> authorities) {
         return new org.springframework.security.core.userdetails.User(usuario.getUsername(), usuario.getPassword(), authorities);
+    }
+
+    private UserDetails buildUserForAuthApp(UserApp usuario, List<GrantedAuthority> authorities) {
+        return new org.springframework.security.core.userdetails.User(usuario.getDocument(), usuario.getDocument(), authorities);
     }
 
     public UserWeb save(UserWeb usuario) {
