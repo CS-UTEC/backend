@@ -37,7 +37,11 @@ public class UserAppService {
 
     public UserApp create(UserApp item){
         item.setRole(roleRepository.findByName("USER_APP"));
-        return repository.save(item);
+        UserApp user = repository.findByDocumentAndType(item.getDocument(), item.getType());
+        if (user == null) {
+          return repository.save(item);
+        }
+        return user;
     }
 
     public UserApp create(LoginApp item){
@@ -70,4 +74,6 @@ public class UserAppService {
     public UserApp findOneByDocumentAndType(String document, String type){
         return repository.findByDocumentAndType(document, type);
     }
+
+    
 }

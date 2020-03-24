@@ -24,7 +24,6 @@ public class MapController {
     @RequestMapping(value = "/red-users", method = RequestMethod.GET)
     public ResponseEntity<?> getRedUsers() {
         return new ResponseEntity<>(mapService.getRedUsers(), HttpStatus.OK);
-      
     }
 
 }
