@@ -40,9 +40,12 @@ public class AuthenticationController {
 
     @RequestMapping(value = "/app", method = RequestMethod.POST)
     public ResponseEntity<AuthToken> appLogin(@RequestBody LoginApp loginUser) {
-        final UserApp user = appService.findOneByDocumentAndType(loginUser.getDocument(), loginUser.getType());
+        UserApp user = appService.findOneByDocumentAndType(loginUser.getDocument(), loginUser.getType());
         if (user == null) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            user = appService.create(loginUser);
+            if (user == null) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
         }
         final String token = jwtTokenUtil.generateTokenForApp(user);
         return new ResponseEntity<>(new AuthToken(user.getId(), token), HttpStatus.OK);

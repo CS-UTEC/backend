@@ -7,6 +7,8 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.event.EventListener;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.data.convert.CustomConversions;
 import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 import org.springframework.data.mongodb.core.convert.MongoCustomConversions;
@@ -48,4 +50,12 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
                 new DocumentToZonedDateTimeConverter()
         ));
     }
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void initIndicesAfterStartup() {
+      // here we should create the indexes
+      // Example
+      // https://github.com/eugenp/tutorials/blob/master/persistence-modules/java-mongodb/src/test/java/com/baeldung/geo/MongoGeospatialLiveTest.java
+    }
+
 }

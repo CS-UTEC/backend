@@ -8,6 +8,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
+import com.mongodb.client.model.geojson.Point;
 
 @Document(collection = "ubication")
 public class Ubication implements Serializable {
@@ -22,9 +24,8 @@ public class Ubication implements Serializable {
 
     private ZonedDateTime timeStamp;
 
-    private Double latitude;
-
-    private Double longitude;
+    @JsonIgnore
+    private GeoJsonPoint location;
 
     @DBRef
     @JsonIgnore
@@ -48,20 +49,12 @@ public class Ubication implements Serializable {
         this.timeStamp = timeStamp;
     }
 
-    public Double getLatitude() {
-        return this.latitude;
+    public GeoJsonPoint getLocation() {
+        return this.location;
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
-    public Double getLongitude() {
-        return this.longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
+    public void setLocation(Double longitude, Double latitude) {
+        this.location = new GeoJsonPoint(longitude, latitude);
     }
 
     public UserApp getUser() {

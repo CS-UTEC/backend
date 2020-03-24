@@ -1,6 +1,12 @@
+// Useful links:
+// https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/#mongo.geospatial
+// https://github.com/eugenp/tutorials/blob/master/persistence-modules/java-mongodb/src/test/java/com/baeldung/geo/MongoGeospatialLiveTest.java
+
 package services;
 
 import data.entities.Ubication;
+import data.entities.UserApp;
+import data.models.UbicationModel;
 import data.repositories.UbicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,10 +39,13 @@ public class UbicationService {
         return repository.findById(id).get();
     }
 
-    public Ubication create(Ubication item){
-        item.setId(sequenceGeneratorService.generateSequence(Ubication.SEQUENCE_NAME));
-        item.setTimeStamp(ZonedDateTime.now(ZoneOffset.UTC));
-        return repository.save(item);
+    public Ubication create(UbicationModel item, UserApp user){
+        Ubication ubication = new Ubication();
+        ubication.setId(sequenceGeneratorService.generateSequence(Ubication.SEQUENCE_NAME));
+        ubication.setTimeStamp(ZonedDateTime.now(ZoneOffset.UTC));
+        ubication.setLocation(item.getLongitude(), item.getLatitude());
+        ubication.setUser(user);
+        return repository.save(ubication);
     }
 
     public Ubication update(Ubication item){

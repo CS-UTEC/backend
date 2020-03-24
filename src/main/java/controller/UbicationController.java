@@ -3,6 +3,7 @@ package controller;
 import services.UbicationService;
 import services.UserAppService;
 import data.entities.*;
+import data.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,19 +20,20 @@ public class UbicationController {
     @Autowired
     private UserAppService appService;
 
+    /*
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<?> find() {
         return new ResponseEntity<>(ubicationService.findAll(), HttpStatus.OK);
     }
+    */
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    public ResponseEntity<?> create(@PathVariable("id") Long id, @RequestBody Ubication input) {
+    public ResponseEntity<?> create(@PathVariable("id") Long id, @RequestBody UbicationModel input) {
         UserApp user = appService.findOne(id);
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        input.setUser(user);
-        ubicationService.create(input);
+        ubicationService.create(input, user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

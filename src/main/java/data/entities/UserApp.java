@@ -26,8 +26,6 @@ public class UserApp implements Serializable {
 
     private String phone;
 
-    private Boolean canMove;
-
     @DBRef
     private Role role;
 
@@ -73,11 +71,4 @@ public class UserApp implements Serializable {
         this.phone = phone;
     }
 
-    public Boolean getCanMove() {
-        return this.canMove;
-    }
-
-    public void setCanMove(Boolean canMove) {
-        this.canMove = canMove;
-    }
 }

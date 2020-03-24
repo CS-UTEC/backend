@@ -44,6 +44,16 @@ public class UserAppService {
     }
 
     public UserApp create(LoginApp item){
+        if (item.getType() == null ||
+            item.getDocument() == null ||
+            item.getPhone() == null) {
+            return null;
+        }
+        if (!(item.getType().equals("dni") ||
+              item.getType().equals("passport") ||
+              item.getType().equals("carnet"))) {
+            return null;
+        }
         UserApp userApp = new UserApp();
         userApp.setId(sequenceGeneratorService.generateSequence(UserApp.SEQUENCE_NAME));
         userApp.setRole(roleRepository.findByName("USER_APP"));
