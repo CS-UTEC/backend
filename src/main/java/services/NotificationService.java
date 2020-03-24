@@ -3,7 +3,6 @@ package services;
 import data.entities.Notification;
 import data.repositories.NotificationRepository;
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +28,7 @@ public class NotificationService {
     }
 
     public Notification findOne(String id){
-        return repository.findById(new ObjectId(id)).get();
+        return repository.findById(id).get();
     }
 
     public Notification create(Notification item){

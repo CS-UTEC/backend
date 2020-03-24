@@ -2,7 +2,6 @@ package data.entities;
 
 import java.io.Serializable;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -15,7 +14,7 @@ public class UserApp implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    private ObjectId id;
+    private String id;
 
     @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
     private String document;
@@ -29,11 +28,11 @@ public class UserApp implements Serializable {
 
     public UserApp() {}
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
     

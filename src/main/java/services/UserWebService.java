@@ -4,7 +4,6 @@ import data.entities.UserWeb;
 import data.repositories.RoleRepository;
 import data.repositories.UserWebRepository;
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +31,7 @@ public class UserWebService {
     }
 
     public UserWeb findOne(String id){
-        return repository.findById(new ObjectId(id)).get();
+        return repository.findById(id).get();
     }
 
     public UserWeb create(UserWeb item){

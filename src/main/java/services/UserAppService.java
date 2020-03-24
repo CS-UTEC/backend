@@ -5,7 +5,6 @@ import data.models.LoginApp;
 import data.repositories.RoleRepository;
 import data.repositories.UserAppRepository;
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +21,7 @@ public class UserAppService {
     
     @Autowired
     private RoleRepository roleRepository;
-    
+
     public List<UserApp> findAll(){
         List<UserApp> items = new ArrayList<>();
 
@@ -33,7 +32,7 @@ public class UserAppService {
     }
 
     public UserApp findOne(String id){
-        return repository.findById(new ObjectId(id)).get();
+        return repository.findById(id).get();
     }
 
     public UserApp create(UserApp item){

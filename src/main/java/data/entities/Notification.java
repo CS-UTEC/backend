@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.List;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -15,7 +14,7 @@ public class Notification implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    private ObjectId id;
+    private String id;
 
     private ZonedDateTime timeStamp;
 
@@ -28,11 +27,11 @@ public class Notification implements Serializable {
 
     public Notification() {}
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -1,10 +1,9 @@
 package data.repositories;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import data.entities.UserApp;
 
-public interface UserAppRepository extends MongoRepository<UserApp, ObjectId> {
+public interface UserAppRepository extends MongoRepository<UserApp, String> {
     UserApp findByDocumentAndType(String document, String type);
     UserApp findByDocument(String document);
 }

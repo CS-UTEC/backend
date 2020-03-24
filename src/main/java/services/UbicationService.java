@@ -9,7 +9,6 @@ import data.entities.UserApp;
 import data.models.UbicationModel;
 import data.repositories.UbicationRepository;
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +34,7 @@ public class UbicationService {
     }
 
     public Ubication findOne(String id){
-        return repository.findById(new ObjectId(id)).get();
+        return repository.findById(id).get();
     }
 
     public Ubication create(UbicationModel item, UserApp user){
