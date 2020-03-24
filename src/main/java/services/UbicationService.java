@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +38,7 @@ public class UbicationService {
 
     public Ubication create(UbicationModel item, UserApp user){
         Ubication ubication = new Ubication();
-        ubication.setTimeStamp(ZonedDateTime.now(ZoneOffset.UTC));
+        ubication.setTimeStamp(ZonedDateTime.now());
         ubication.setLocation(item.getLongitude(), item.getLatitude());
         ubication.setUser(user);
         return repository.save(ubication);
