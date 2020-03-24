@@ -4,23 +4,20 @@ import java.io.Serializable;
 import java.time.ZonedDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
-import com.mongodb.client.model.geojson.Point;
 
 @Document(collection = "ubication")
 public class Ubication implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
-    @Transient
-    public static final String SEQUENCE_NAME = "ubication_sequence";
 
     @Id
-    private long id;
+    private ObjectId id;
 
     private ZonedDateTime timeStamp;
 
@@ -33,11 +30,11 @@ public class Ubication implements Serializable {
 
     public Ubication() {}
 
-    public Long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

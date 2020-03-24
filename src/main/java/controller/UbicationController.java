@@ -4,6 +4,8 @@ import services.UbicationService;
 import services.UserAppService;
 import data.entities.*;
 import data.models.*;
+
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +30,8 @@ public class UbicationController {
     */
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    public ResponseEntity<?> create(@PathVariable("id") Long id, @RequestBody UbicationModel input) {
-        UserApp user = appService.findOne(id);
+    public ResponseEntity<?> create(@PathVariable("id") String id, @RequestBody UbicationModel input) {
+        UserApp user = appService.findOne(new ObjectId(id));
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

@@ -3,6 +3,8 @@ package services;
 import data.entities.UserWeb;
 import data.repositories.RoleRepository;
 import data.repositories.UserWebRepository;
+
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,9 +21,6 @@ public class UserWebService {
 
     @Autowired
     private RoleRepository roleRepository;
-    
-    @Autowired
-    private SequenceGeneratorService sequenceGeneratorService;
 
     public List<UserWeb> findAll(){
         List<UserWeb> items = new ArrayList<>();
@@ -32,12 +31,11 @@ public class UserWebService {
         return items;
     }
 
-    public UserWeb findOne(long id){
-        return repository.findById(id).get();
+    public UserWeb findOne(String id){
+        return repository.findById(new ObjectId(id)).get();
     }
 
     public UserWeb create(UserWeb item){
-        item.setId(sequenceGeneratorService.generateSequence(UserWeb.SEQUENCE_NAME));
         item.setRole(roleRepository.findByName("USER_WEB"));
         return repository.save(item);
     }
@@ -46,7 +44,7 @@ public class UserWebService {
         return repository.save(item);
     }
 
-    public void delete(Long id){
+    public void delete(String id){
         repository.delete(findOne(id));
     }
 

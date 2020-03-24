@@ -15,7 +15,6 @@ public class SymptomService {
     private SymptomRepository repository;
 
     public Symptom create(Symptom item){
-        //item.setId(sequenceGeneratorService.generateSequence(Ubication.SEQUENCE_NAME));
         item.setTimestamp(ZonedDateTime.now(ZoneOffset.UTC));
         return repository.save(item);
     }

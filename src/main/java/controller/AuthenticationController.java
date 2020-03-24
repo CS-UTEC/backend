@@ -35,7 +35,7 @@ public class AuthenticationController {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUser.getUsername(), loginUser.getPassword()));
         final UserWeb user = webService.findOneByUsername(loginUser.getUsername());
         final String token = jwtTokenUtil.generateTokenForWeb(user);
-        return new ResponseEntity<>(new AuthToken(user.getId(), token), HttpStatus.OK);
+        return new ResponseEntity<>(new AuthToken(user.getId().toString(), token), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/app", method = RequestMethod.POST)
@@ -48,6 +48,6 @@ public class AuthenticationController {
             }
         }
         final String token = jwtTokenUtil.generateTokenForApp(user);
-        return new ResponseEntity<>(new AuthToken(user.getId(), token), HttpStatus.OK);
+        return new ResponseEntity<>(new AuthToken(user.getId().toString(), token), HttpStatus.OK);
     }
 }

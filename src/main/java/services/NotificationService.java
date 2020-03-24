@@ -2,6 +2,8 @@ package services;
 
 import data.entities.Notification;
 import data.repositories.NotificationRepository;
+
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +19,6 @@ public class NotificationService {
     @Autowired
     private NotificationRepository repository;
 
-    @Autowired
-    private SequenceGeneratorService sequenceGeneratorService;
-
     public List<Notification> findAll(){
         List<Notification> items = new ArrayList<>();
 
@@ -29,12 +28,11 @@ public class NotificationService {
         return items;
     }
 
-    public Notification findOne(long id){
-        return repository.findById(id).get();
+    public Notification findOne(String id){
+        return repository.findById(new ObjectId(id)).get();
     }
 
     public Notification create(Notification item){
-        item.setId(sequenceGeneratorService.generateSequence(Notification.SEQUENCE_NAME));
         item.setTimeStamp(ZonedDateTime.now(ZoneOffset.UTC));
         return repository.save(item);
     }
@@ -54,7 +52,7 @@ public class NotificationService {
         return repository.save(item);
     }
 
-    public void delete(Long id){
+    public void delete(String id){
         repository.delete(findOne(id));
     }
 }

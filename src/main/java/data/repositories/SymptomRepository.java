@@ -1,7 +1,8 @@
 package data.repositories;
 
-import data.entities.Symptom;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import data.entities.Symptom;
 
-public interface SymptomRepository extends MongoRepository<Symptom,Long> {
+public interface SymptomRepository extends MongoRepository<Symptom, ObjectId> {
 }

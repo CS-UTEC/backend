@@ -30,10 +30,7 @@ public class AuthService implements UserDetailsService {
 
     @Autowired
     private BCryptPasswordEncoder bcryptEncoder;
-
-    @Autowired
-    private SequenceGeneratorService sequenceGeneratorService;
-
+    
     public UserDetails loadUserByUsername(String data) throws UsernameNotFoundException {
         String role = data.substring(0, 8);
         String username = data.substring(8, data.length());
@@ -88,7 +85,6 @@ public class AuthService implements UserDetailsService {
     }
 
     public UserWeb save(UserWeb usuario) {
-        usuario.setId(sequenceGeneratorService.generateSequence(UserWeb.SEQUENCE_NAME));
         usuario.setPassword(bcryptEncoder.encode(usuario.getPassword()));
         return webRepository.save(usuario);
     }

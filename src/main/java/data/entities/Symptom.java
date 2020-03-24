@@ -1,7 +1,7 @@
 package data.entities;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -15,11 +15,8 @@ public class Symptom implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Transient
-    public static final String SEQUENCE_NAME = "symptom_sequence";
-
     @Id
-    private long id;
+    private ObjectId id;
 
     @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
     private String document;
@@ -45,11 +42,11 @@ public class Symptom implements Serializable {
         this.document = document;
     }
 
-    public long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

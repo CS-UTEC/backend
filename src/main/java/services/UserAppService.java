@@ -4,6 +4,8 @@ import data.entities.UserApp;
 import data.models.LoginApp;
 import data.repositories.RoleRepository;
 import data.repositories.UserAppRepository;
+
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,10 +22,7 @@ public class UserAppService {
     
     @Autowired
     private RoleRepository roleRepository;
-
-    @Autowired
-    private SequenceGeneratorService sequenceGeneratorService;
-
+    
     public List<UserApp> findAll(){
         List<UserApp> items = new ArrayList<>();
 
@@ -33,12 +32,11 @@ public class UserAppService {
         return items;
     }
 
-    public UserApp findOne(long id){
+    public UserApp findOne(ObjectId id){
         return repository.findById(id).get();
     }
 
     public UserApp create(UserApp item){
-        item.setId(sequenceGeneratorService.generateSequence(UserApp.SEQUENCE_NAME));
         item.setRole(roleRepository.findByName("USER_APP"));
         return repository.save(item);
     }
@@ -55,7 +53,6 @@ public class UserAppService {
             return null;
         }
         UserApp userApp = new UserApp();
-        userApp.setId(sequenceGeneratorService.generateSequence(UserApp.SEQUENCE_NAME));
         userApp.setRole(roleRepository.findByName("USER_APP"));
         userApp.setType(item.getType());
         userApp.setDocument(item.getDocument());
@@ -67,7 +64,7 @@ public class UserAppService {
         return repository.save(item);
     }
 
-    public void delete(Long id){
+    public void delete(ObjectId id){
         repository.delete(findOne(id));
     }
 

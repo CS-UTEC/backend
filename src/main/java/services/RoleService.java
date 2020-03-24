@@ -2,6 +2,8 @@ package services;
 
 import data.entities.Role;
 import data.repositories.RoleRepository;
+
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +16,6 @@ public class RoleService {
 
     @Autowired
     private RoleRepository repository;
-
-    @Autowired
-    private SequenceGeneratorService sequenceGeneratorService;
 
     public List<Role> findAll(){
         List<Role> items = new ArrayList<>();
@@ -31,12 +30,11 @@ public class RoleService {
         return repository.findByName(name);
     }
 
-    public Role findOne(long id){
-        return repository.findById(id).get();
+    public Role findOne(String id){
+        return repository.findById(new ObjectId(id)).get();
     }
 
     public Role create(Role item){
-        item.setId(sequenceGeneratorService.generateSequence(Role.SEQUENCE_NAME));
         return repository.save(item);
     }
 
@@ -55,7 +53,7 @@ public class RoleService {
         return repository.save(item);
     }
 
-    public void delete(Long id){
+    public void delete(String id){
         repository.delete(findOne(id));
     }
 }

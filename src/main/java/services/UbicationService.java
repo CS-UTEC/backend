@@ -8,6 +8,8 @@ import data.entities.Ubication;
 import data.entities.UserApp;
 import data.models.UbicationModel;
 import data.repositories.UbicationRepository;
+
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +25,6 @@ public class UbicationService {
     @Autowired
     private UbicationRepository repository;
 
-    @Autowired
-    private SequenceGeneratorService sequenceGeneratorService;
-
     public List<Ubication> findAll(){
         List<Ubication> items = new ArrayList<>();
 
@@ -35,13 +34,12 @@ public class UbicationService {
         return items;
     }
 
-    public Ubication findOne(long id){
-        return repository.findById(id).get();
+    public Ubication findOne(String id){
+        return repository.findById(new ObjectId(id)).get();
     }
 
     public Ubication create(UbicationModel item, UserApp user){
         Ubication ubication = new Ubication();
-        ubication.setId(sequenceGeneratorService.generateSequence(Ubication.SEQUENCE_NAME));
         ubication.setTimeStamp(ZonedDateTime.now(ZoneOffset.UTC));
         ubication.setLocation(item.getLongitude(), item.getLatitude());
         ubication.setUser(user);
@@ -63,7 +61,7 @@ public class UbicationService {
         return repository.save(item);
     }
 
-    public void delete(Long id){
+    public void delete(String id){
         repository.delete(findOne(id));
     }
 }
