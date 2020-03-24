@@ -10,6 +10,7 @@ import services.AuthService;
 import services.RoleService;
 import data.entities.Role;
 import data.entities.UserWeb;
+import data.entities.UserApp;
 
 @RestController
 @RequestMapping("/test")
@@ -22,6 +23,12 @@ public class TestDataController {
 
     @Autowired
     private RoleService roleService;
+
+    /*
+    @RequestMapping(value = "/fake-users", method = RequestMethod.Get) {
+        // UserApp user1 = authService.create();
+    }
+    */
 
     @RequestMapping(value = "/data", method = RequestMethod.GET)
     public String generateData() {

@@ -22,7 +22,7 @@ public class UserAppService {
     @Autowired
     private RoleRepository roleRepository;
 
-    public List<UserApp> findAll(){
+    public List<UserApp> findAll() {
         List<UserApp> items = new ArrayList<>();
 
         for (UserApp item :repository.findAll()) {

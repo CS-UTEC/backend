@@ -53,3 +53,23 @@
 ### Response
 
 Check HTTP status
+
+
+### Route: /map/red-users
+### Method: GET
+### Header:
+```json
+"Bearer <token>"
+```
+
+### Response
+```json
+[
+    {
+        "timeStamp": "2020-03-24T16:12:41.557Z",
+        "latitude": 12.0,
+        "longitude": 13.0,
+        "usetAppId": "4"
+    }
+]
+```

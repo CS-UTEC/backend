@@ -22,11 +22,12 @@ public class UbicationController {
     private UserAppService appService;
 
     
+    /*
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<?> find() {
         return new ResponseEntity<>(ubicationService.findAll(), HttpStatus.OK);
     }
-    
+    */
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     public ResponseEntity<?> create(@PathVariable String id, @RequestBody UbicationModel input) {
