@@ -17,7 +17,7 @@ public class SymptomController {
 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    public ResponseEntity<?> create(@PathVariable("id") Long id, @RequestBody Symptom input) {
+    public ResponseEntity<?> create(@PathVariable String id, @RequestBody Symptom input) {
         symptomService.create(input);
         return new ResponseEntity<>(HttpStatus.OK);
     }

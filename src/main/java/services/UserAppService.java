@@ -32,8 +32,8 @@ public class UserAppService {
         return items;
     }
 
-    public UserApp findOne(ObjectId id){
-        return repository.findById(id).get();
+    public UserApp findOne(String id){
+        return repository.findById(new ObjectId(id)).get();
     }
 
     public UserApp create(UserApp item){
@@ -64,7 +64,7 @@ public class UserAppService {
         return repository.save(item);
     }
 
-    public void delete(ObjectId id){
+    public void delete(String id){
         repository.delete(findOne(id));
     }
 
