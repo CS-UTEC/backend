@@ -32,7 +32,6 @@ public class AuthenticationController {
 
     @RequestMapping(value = "/web", method = RequestMethod.POST)
     public ResponseEntity<AuthToken> webLogin(@RequestBody LoginWeb loginUser) throws AuthenticationException {
-
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUser.getUsername(), loginUser.getPassword()));
         final UserWeb user = webService.findOneByUsername(loginUser.getUsername());
         final String token = jwtTokenUtil.generateTokenForWeb(user);
@@ -43,7 +42,7 @@ public class AuthenticationController {
     public ResponseEntity<AuthToken> appLogin(@RequestBody LoginApp loginUser) {
         final UserApp user = appService.findOneByDocumentAndType(loginUser.getDocument(), loginUser.getType());
         if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         final String token = jwtTokenUtil.generateTokenForApp(user);
         return new ResponseEntity<>(new AuthToken(user.getId(), token), HttpStatus.OK);
