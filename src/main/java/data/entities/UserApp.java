@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -14,9 +13,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class UserApp implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
-    @Transient
-    public static final String SEQUENCE_NAME = "user_app_sequence";
 
     @Id
     private ObjectId id;
