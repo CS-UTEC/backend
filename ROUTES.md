@@ -37,7 +37,7 @@
         "timeStamp": "2020-03-24T16:12:41.557Z",
         "latitude": 12.0,
         "longitude": 13.0,
-        "userAppId": "5e7a7f9ee3a7c2152101203b""
+        "userAppId": "5e7a7f9ee3a7c2152101203b"
     },
     {
         "timeStamp": "2020-03-24T17:18:24.202-05:00",

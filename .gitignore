@@ -2,6 +2,7 @@
 ## Deploy
 ##############################
 deploy.sh
+src/main/java/config/Constants.java
 
 ##############################
 ## Java
