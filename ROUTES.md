@@ -85,3 +85,69 @@ Check HTTP status
     }
 ]
 ```
+
+
+### Route: /notification/notify
+### Method: POST
+### Header:
+```json
+"Bearer <token>"
+```
+
+### Response
+```json
+{
+	"message": "Hola mundo",
+	"userAppId": ["5e7a7f9ee3a7c2152101203c", "5e7a7f9ee3a7c2152101203d"]
+}
+```
+
+### Route: /notification/get-all/:notification_id
+### Method: GET
+### Header:
+```json
+"Bearer <token>"
+```
+
+### Response
+```json
+[
+    {
+        "id": "5e7abefaf5367f37d141a77d",
+        "timeStamp": "2020-03-25T02:16:26.123Z",
+        "message": "Hola mundo",
+        "checked": false,
+        "user": {
+            "id": "5e7a7f9ee3a7c2152101203c",
+            "document": "11111111",
+            "type": "dni",
+            "phone": "12121212",
+            "rol": null
+        }
+    },
+    {
+        "id": "5e7ac8b37dfe8a62abffda5f",
+        "timeStamp": "2020-03-25T02:57:55.418Z",
+        "message": "Chao mundo",
+        "checked": false,
+        "user": {
+            "id": "5e7a7f9ee3a7c2152101203c",
+            "document": "11111111",
+            "type": "dni",
+            "phone": "12121212",
+            "rol": null
+        }
+    }
+]
+```
+
+### Route: /notification/mark/:notification_id/:state
+state = true or false
+### Method: GET
+### Header:
+```json
+"Bearer <token>"
+```
+
+### Response
+Check HTTP status
