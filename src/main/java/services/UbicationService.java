@@ -1,7 +1,3 @@
-// Useful links:
-// https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/#mongo.geospatial
-// https://github.com/eugenp/tutorials/blob/master/persistence-modules/java-mongodb/src/test/java/com/baeldung/geo/MongoGeospatialLiveTest.java
-
 package services;
 
 import data.entities.Ubication;
@@ -16,6 +12,10 @@ import java.lang.reflect.Field;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.data.geo.Box;
+import org.springframework.data.geo.Circle;
+import org.springframework.data.geo.Point;
 
 @Service
 public class UbicationService {
@@ -62,4 +62,16 @@ public class UbicationService {
     public void delete(String id){
         repository.delete(findOne(id));
     }
+
+    public List<Ubication> findByCircle(Point center, Double radius) {
+        return repository.findByLocationWithin(new Circle(center, radius));
+    }
+    
+    public List<Ubication> findByBox(Point start, Point end) {
+        return repository.findByLocationWithin(new Box(start, end));
+    }
 }
+
+// Useful links:
+// https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/#mongo.geospatial
+// https://github.com/eugenp/tutorials/blob/master/persistence-modules/java-mongodb/src/test/java/com/baeldung/geo/MongoGeospatialLiveTest.java
