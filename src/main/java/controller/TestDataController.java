@@ -8,8 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import services.AuthService;
 import services.RoleService;
+import services.UserAppService;
+import services.UbicationService;
 import data.entities.Role;
 import data.entities.UserWeb;
+import data.entities.UserApp;
+import data.models.UbicationModel;
 
 @RestController
 @RequestMapping("/test")
@@ -22,6 +26,38 @@ public class TestDataController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private UserAppService appService; 
+
+    @Autowired
+    private UbicationService ubicationService;
+
+    private UserApp createUserApp(String document, String phone) {
+      UserApp userApp = new UserApp();
+      userApp.setDocument(document);
+      userApp.setType("dni");
+      userApp.setPhone(phone);
+      return appService.create(userApp);
+    }
+
+    private void createLocation(double latitude, double longitude, UserApp userApp) {    
+        UbicationModel ubication = new UbicationModel();
+        ubication.setLatitude(latitude);
+        ubication.setLongitude(longitude);
+        ubicationService.create(ubication, userApp);
+    }
+
+    @RequestMapping(value = "/fake-users", method = RequestMethod.GET)
+    public String fakeUsers() {
+        UserApp user1 = createUserApp("11111111", "12121212");
+        UserApp user2 = createUserApp("22222222", "13131313");
+        createLocation(12.2332, 24.2324, user1);
+        createLocation(15.1235, 0.12134, user2);
+        createLocation(40.2434, 43.3243, user1);
+        createLocation(35.32434, 23.233, user2);
+        return "OK";
+    }
 
     @RequestMapping(value = "/data", method = RequestMethod.GET)
     public String generateData() {

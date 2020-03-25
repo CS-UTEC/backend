@@ -20,7 +20,6 @@ public class Ubication implements Serializable {
 
     private ZonedDateTime timeStamp;
 
-    @JsonIgnore
     private GeoJsonPoint location;
 
     @DBRef

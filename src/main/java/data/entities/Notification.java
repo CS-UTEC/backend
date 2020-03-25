@@ -23,7 +23,7 @@ public class Notification implements Serializable {
     private Boolean checked;
 
     @DBRef
-    private List<UserApp> users;
+    private UserApp user;
 
     public Notification() {}
 
@@ -59,11 +59,11 @@ public class Notification implements Serializable {
         this.checked = checked;
     }
 
-    public List<UserApp> getUsers() {
-        return this.users;
+    public UserApp getUser() {
+        return this.user;
     }
 
-    public void setUsers(List<UserApp> users) {
-        this.users = users;
+    public void setUser(UserApp user) {
+        this.user = user;
     }
 }
