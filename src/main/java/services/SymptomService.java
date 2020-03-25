@@ -5,7 +5,6 @@ import data.repositories.SymptomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
 @Service
@@ -15,7 +14,7 @@ public class SymptomService {
     private SymptomRepository repository;
 
     public Symptom create(Symptom item){
-        item.setTimestamp(ZonedDateTime.now(ZoneOffset.UTC));
+        item.setTimestamp(ZonedDateTime.now());
         return repository.save(item);
     }
 
