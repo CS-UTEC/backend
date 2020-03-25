@@ -50,9 +50,9 @@ public class UserAppService {
             /* || item.getPhone() == null removido por ahora*/) {
             return null;
         }
-        if (!(item.getType().equals("dni") ||
-              item.getType().equals("passport") ||
-              item.getType().equals("carnet"))) {
+        if (!(item.getType().equals("DNI") ||
+              item.getType().equals("Pasaporte") ||
+              item.getType().equals("Carnet de Extranjería"))) {
             return null;
         }
         UserApp userApp = new UserApp();
