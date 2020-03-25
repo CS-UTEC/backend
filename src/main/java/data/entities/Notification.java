@@ -2,7 +2,6 @@ package data.entities;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
