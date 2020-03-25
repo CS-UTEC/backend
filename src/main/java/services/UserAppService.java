@@ -46,8 +46,8 @@ public class UserAppService {
 
     public UserApp create(LoginApp item){
         if (item.getType() == null ||
-            item.getDocument() == null ||
-            item.getPhone() == null) {
+            item.getDocument() == null
+            /* || item.getPhone() == null removido por ahora*/) {
             return null;
         }
         if (!(item.getType().equals("dni") ||
