@@ -10,12 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.aggregation.*;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 import java.lang.reflect.Field;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +43,7 @@ public class NotificationService {
         Query query = new Query();
         query.addCriteria(Criteria.where("user.id").is(id));
         // query.addCriteria(Criteria.where("checked").is(false));
-        // query.with(new Sort(Sort.Direction.DESC, "timeStamp"));
+        query.with(Sort.by(Sort.Direction.DESC, "timeStamp"));
         return mongoTemplate.find(query, Notification.class);
     }
 
@@ -58,7 +56,7 @@ public class NotificationService {
             Notification notification = new Notification();
             notification.setMessage(model.getMessage());
             notification.setChecked(false);
-            notification.setTimeStamp(ZonedDateTime.now(ZoneOffset.UTC));
+            notification.setTimeStamp(ZonedDateTime.now());
             UserApp user = userRepository.findById(userAppId).get();
             notification.setUser(user);
             repository.save(notification);
