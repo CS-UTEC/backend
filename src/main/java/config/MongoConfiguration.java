@@ -4,6 +4,7 @@ import static java.util.Arrays.asList;
 
 import java.util.Arrays;
 
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,9 @@ import com.mongodb.MongoClientSettings;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Indexes;
 
 @Configuration
 public class MongoConfiguration extends AbstractMongoClientConfiguration {
@@ -53,6 +57,10 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
 
     @EventListener(ApplicationReadyEvent.class)
     public void initIndicesAfterStartup() {
+        MongoClient mongoClient = mongoClient();
+        MongoDatabase db = mongoClient.getDatabase(database);
+        MongoCollection<Document> collection = db.getCollection("ubication");
+        collection.createIndex(Indexes.geo2dsphere("location"));
       // here we should create the indexes
       // Example
       // https://github.com/eugenp/tutorials/blob/master/persistence-modules/java-mongodb/src/test/java/com/baeldung/geo/MongoGeospatialLiveTest.java
