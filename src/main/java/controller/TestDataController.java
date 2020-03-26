@@ -1,9 +1,13 @@
 package controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import services.AuthService;
@@ -11,6 +15,7 @@ import services.RoleService;
 import services.UserAppService;
 import services.UbicationService;
 import data.entities.Role;
+import data.entities.Ubication;
 import data.entities.UserWeb;
 import data.entities.UserApp;
 import data.models.UbicationModel;
@@ -56,6 +61,33 @@ public class TestDataController {
         createLocation(15.1235, 0.12134, user2);
         createLocation(40.2434, 43.3243, user1);
         createLocation(35.32434, 23.233, user2);
+        return "OK";
+    }
+
+    @RequestMapping(value = "/gen/{nUsers}", method = RequestMethod.GET)
+    public String usersGenerator(@PathVariable Long nUsers) {
+        UserApp user = null;
+        Random rand = new Random();
+        int cod;
+        Double lat, lon;
+        for (int i = 0; i < nUsers; i++) {
+            cod = rand.nextInt(89999999) + 10000000;
+            lat = (rand.nextInt(14908977 - 5641254) + 5641254.0)/1000000;
+            lon = (rand.nextInt(78648414 - 71676855) + 71676855.0)/1000000;
+            user = createUserApp(Integer.toString(cod), Integer.toString(cod));
+            createLocation(-lat, -lon, user);
+        }
+        return "OK";
+    }
+
+    @RequestMapping(value = "/gen/deleteall", method = RequestMethod.GET)
+    public String usersDestructor() {
+        for (Ubication ubication : ubicationService.findAll()) {
+            ubicationService.delete(ubication.getId());
+        }
+        for (UserApp userApp : appService.findAll()) {
+            appService.delete(userApp.getId());
+        }
         return "OK";
     }
 
