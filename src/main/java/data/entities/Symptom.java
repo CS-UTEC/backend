@@ -26,10 +26,9 @@ public class Symptom implements Serializable {
 
     private Double longitude;
 
-    private String simptom_1;
-    private String simptom_2;
-    private String simptom_3;
-    private String simptom_4;
+    private Boolean cough;
+    private Boolean breathe;
+    private int fever;
 
     public Symptom() { }
 
@@ -73,35 +72,27 @@ public class Symptom implements Serializable {
         this.longitude = longitude;
     }
 
-    public String getSimptom_1() {
-        return simptom_1;
+    public Boolean getCough() {
+        return cough;
     }
 
-    public void setSimptom_1(String simptom_1) {
-        this.simptom_1 = simptom_1;
+    public void setCough(Boolean cough) {
+        this.cough = cough;
     }
 
-    public String getSimptom_2() {
-        return simptom_2;
+    public Boolean getBreathe() {
+        return breathe;
     }
 
-    public void setSimptom_2(String simptom_2) {
-        this.simptom_2 = simptom_2;
+    public void setBreathe(Boolean breathe) {
+        this.breathe = breathe;
     }
 
-    public String getSimptom_3() {
-        return simptom_3;
+    public int getFever() {
+        return fever;
     }
 
-    public void setSimptom_3(String simptom_3) {
-        this.simptom_3 = simptom_3;
-    }
-
-    public String getSimptom_4() {
-        return simptom_4;
-    }
-
-    public void setSimptom_4(String simptom_4) {
-        this.simptom_4 = simptom_4;
+    public void setFever(int fever) {
+        this.fever = fever;
     }
 }

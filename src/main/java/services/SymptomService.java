@@ -1,6 +1,7 @@
 package services;
 
 import data.entities.Symptom;
+import data.models.SymptomModel;
 import data.repositories.SymptomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,9 +14,17 @@ public class SymptomService {
     @Autowired
     private SymptomRepository repository;
 
-    public Symptom create(Symptom item){
-        item.setTimestamp(ZonedDateTime.now());
-        return repository.save(item);
+    public Symptom create(SymptomModel item){
+        Symptom s=new Symptom();
+        s.setDocument(item.getDocument());
+        s.setTimestamp(ZonedDateTime.now());
+        s.setLatitude(item.getLatitude());
+        s.setLongitude(item.getLongitude());
+        s.setBreathe(item.getBreathe());
+        s.setCough(item.getCough());
+        s.setFever(item.getFever());
+
+        return repository.save(s);
     }
 
 }
