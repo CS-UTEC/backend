@@ -74,6 +74,8 @@
 #### Response
 Check HTTP status
 
+* Use this data to report a confirmed case (the server will send the
+  notifications to the required people)
 
 #### Route: /notification/report-case
 #### Method: GET
@@ -154,6 +156,7 @@ Check HTTP status
 
 Check HTTP status
 
+* Use this route to delete the ubication data store of a user
 
 #### Route: /ubication/delete-data
 #### Method: DELETE
@@ -218,10 +221,43 @@ Check HTTP status
 ```js
 {
 	"document": "12345678",
-	"type": "dni",
+	"type": "DNI",
   "notificationId": "5e7ac8b37dfe8a62abffda5f",
   "checked": true
 }
 ```
 ### Response
 Check HTTP status
+
+* Use this route to report symptoms and get a score an a message
+
+#### Route: /symptom/report
+#### Method: POST
+#### Body example
+```js
+{
+	"document": "12345678",
+	"type": "DNI",
+  "result": [
+    true,
+    false,
+    true,
+    true,
+    false,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true,
+    false]
+}
+```
+### Response
+{
+  "score": 11,
+  "message": "Llame a los servicios para realizar detección para SRAS-COV2 (COVID19)"
+}
+
+
