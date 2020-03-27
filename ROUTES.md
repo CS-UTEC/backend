@@ -46,10 +46,14 @@
   {
     "ubigeo": "ubigeo-code1",
     "cases:" 12
+    "latitude": 12,
+    "longitude": 14
   },
   {
     "ubigeo": "ubigeo-code2",
     "cases:" 100
+    "latitude": 12,
+    "longitude": 20
   }
 ]
 ```
