@@ -21,23 +21,35 @@ public class NotificationController {
     @Autowired
     private NotificationService notificationService;
 
+    @Autowired
+    private UserAppService appService;
+
     @RequestMapping(value = "/notify", method = RequestMethod.POST)
-    public ResponseEntity<?> getRedUsers(@RequestBody NotificationModel body) {
+    public ResponseEntity<?> notify(@RequestBody NotificationModel body) {
         notificationService.create(body);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/get-all/{notificationId}", method = RequestMethod.GET)
-    public ResponseEntity<?> getAll(@PathVariable String notificationId) {
-        return new ResponseEntity<>(notificationService.getAll(notificationId), HttpStatus.OK);
+    @RequestMapping(value = "/get-all", method = RequestMethod.GET)
+    public ResponseEntity<?> getAll(@RequestBody LoginApp loginUser) {
+        UserApp user = appService.findOrCreate(loginUser.getDocument(), loginUser.getType());
+        return new ResponseEntity<>(notificationService.getAll(user), HttpStatus.OK);
     }
 
-
-    @RequestMapping(value = "/mark/{notification_id}/{state}", method = RequestMethod.GET)
-    public ResponseEntity<?> mark(@PathVariable String notification_id, @PathVariable String state) {
-        notificationService.update(notification_id, state);
+    @RequestMapping(value = "/mark", method = RequestMethod.POST)
+    public ResponseEntity<?> mark(@RequestBody NotificationMark notification) {
+        UserApp user = appService.findOrCreate(notification.getDocument(), notification.getType());
+        notificationService.update(notification.getNotificationId(), notification.getChecked());
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/report-case", method = RequestMethod.POST)
+    public ResponseEntity<?> reportCase(@RequestBody LoginApp loginUser) {
+        UserApp user = appService.findOrCreate(loginUser.getDocument(), loginUser.getType());
+        // TO DO
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 
 }

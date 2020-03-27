@@ -35,32 +35,24 @@ public class UserAppService {
         return repository.findById(id).get();
     }
 
-    public UserApp create(UserApp item){
-        item.setRole(roleRepository.findByName("USER_APP"));
-        UserApp user = repository.findByDocumentAndType(item.getDocument(), item.getType());
-        if (user == null) {
-          return repository.save(item);
-        }
-        return user;
-    }
-
-    public UserApp create(LoginApp item){
-        if (item.getType() == null ||
-            item.getDocument() == null
-            /* || item.getPhone() == null removido por ahora*/) {
-            return null;
-        }
-        if (!(item.getType().equals("DNI") ||
-              item.getType().equals("Pasaporte") ||
-              item.getType().equals("Carnet de Extranjería"))) {
-            return null;
-        }
-        UserApp userApp = new UserApp();
-        userApp.setRole(roleRepository.findByName("USER_APP"));
-        userApp.setType(item.getType());
-        userApp.setDocument(item.getDocument());
-        userApp.setPhone(item.getPhone());
-        return repository.save(userApp);
+    public UserApp findOrCreate(String document, String type){
+      UserApp user = findOneByDocumentAndType(document, type);
+      if (user != null) return user;
+      // Raise exepctions here
+      if (document == null || type == null) {
+          return null;
+      }
+      if (!(type.equals("DNI") ||
+            type.equals("Pasaporte") ||
+            type.equals("Carnet de Extranjería"))) {
+          return null;
+      }
+      user = new UserApp();
+      user.setRole(roleRepository.findByName("USER_APP"));
+      user.setType(type);
+      user.setDocument(document);
+      user.setState("neutral");
+      return repository.save(user);       
     }
 
     public UserApp update(UserApp item){

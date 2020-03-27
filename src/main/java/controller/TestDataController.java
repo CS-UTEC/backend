@@ -24,6 +24,7 @@ import data.models.UbicationModel;
 @RequestMapping("/test")
 @CrossOrigin(origins = "*")
 public class TestDataController {
+
     final static String clientUrl = "*";
     
     @Autowired
@@ -38,6 +39,7 @@ public class TestDataController {
     @Autowired
     private UbicationService ubicationService;
 
+    /*
     private UserApp createUserApp(String document, String phone) {
       UserApp userApp = new UserApp();
       userApp.setDocument(document);
@@ -90,6 +92,7 @@ public class TestDataController {
         }
         return "OK";
     }
+    */
 
     @RequestMapping(value = "/data", method = RequestMethod.GET)
     public String generateData() {

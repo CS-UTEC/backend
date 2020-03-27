@@ -27,7 +27,8 @@ public class MapService {
     @Autowired
     private UbicationRepository repository;
 
-    public List<MapUser> getRedUsers(){
+    public List<MapUser> getUsers(String state){
+        /* TO DO
         Map<String, MapUser> redUsers = new HashMap<>();
 
         for (Ubication item :repository.findAll()) {
@@ -57,6 +58,8 @@ public class MapService {
           items.add(item);
         }
         return items;
+        */
+        return null;
     }
 
 }

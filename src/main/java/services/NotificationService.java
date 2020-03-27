@@ -39,9 +39,9 @@ public class NotificationService {
         return items;
     }
 
-    public List<Notification> getAll(String id){
+    public List<Notification> getAll(UserApp user){
         Query query = new Query();
-        query.addCriteria(Criteria.where("user.id").is(id));
+        query.addCriteria(Criteria.where("user.id").is(user.getId()));
         // query.addCriteria(Criteria.where("checked").is(false));
         query.with(Sort.by(Sort.Direction.DESC, "timeStamp"));
         return mongoTemplate.find(query, Notification.class);
@@ -63,8 +63,7 @@ public class NotificationService {
         } 
     }
 
-    public Notification update (String id, String state) {
-        Boolean checked = state.equals("true");
+    public Notification update (String id, Boolean checked) {
         Notification notification = repository.findById(id).get();
         notification.setChecked(checked);
         return repository.save(notification);

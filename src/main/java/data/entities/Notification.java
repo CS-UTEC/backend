@@ -3,6 +3,8 @@ package data.entities;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -22,6 +24,7 @@ public class Notification implements Serializable {
     private Boolean checked;
 
     @DBRef
+    @JsonIgnore
     private UserApp user;
 
     public Notification() {}

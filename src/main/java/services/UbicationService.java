@@ -16,12 +16,19 @@ import java.util.List;
 import org.springframework.data.geo.Box;
 import org.springframework.data.geo.Circle;
 import org.springframework.data.geo.Point;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 @Service
 public class UbicationService {
 
     @Autowired
     private UbicationRepository repository;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     public List<Ubication> findAll(){
         List<Ubication> items = new ArrayList<>();
@@ -36,12 +43,18 @@ public class UbicationService {
         return repository.findById(id).get();
     }
 
-    public Ubication create(UbicationModel item, UserApp user){
+    public Ubication create(UserApp user, Double latitude, Double longitude){
         Ubication ubication = new Ubication();
         ubication.setTimeStamp(ZonedDateTime.now());
-        ubication.setLocation(item.getLongitude(), item.getLatitude());
+        ubication.setLocation(longitude, latitude);
         ubication.setUser(user);
         return repository.save(ubication);
+    }
+
+    public void deleteData(UserApp user){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("user").is(user));
+        mongoTemplate.remove(query, Ubication.class);
     }
 
     public Ubication update(Ubication item){

@@ -4,7 +4,6 @@ public class LoginApp {
 
     private String document;
     private String type;
-    private String phone;
 
     protected LoginApp() {}
 
@@ -24,11 +23,4 @@ public class LoginApp {
         this.type = type;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 }

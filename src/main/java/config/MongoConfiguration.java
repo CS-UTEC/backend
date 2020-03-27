@@ -61,9 +61,6 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
         MongoDatabase db = mongoClient.getDatabase(database);
         MongoCollection<Document> collection = db.getCollection("ubication");
         collection.createIndex(Indexes.geo2dsphere("location"));
-      // here we should create the indexes
-      // Example
-      // https://github.com/eugenp/tutorials/blob/master/persistence-modules/java-mongodb/src/test/java/com/baeldung/geo/MongoGeospatialLiveTest.java
     }
 
 }

@@ -18,29 +18,28 @@ import org.springframework.web.bind.annotation.*;
 public class UbicationController {
 
     @Autowired
-    private UbicationService service;
+    private UbicationService ubicationService;
 
     @Autowired
     private UserAppService appService;
 
-    
-    /*
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ResponseEntity<?> find() {
-        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
-    }
-    */
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    public ResponseEntity<?> create(@PathVariable String id, @RequestBody UbicationModel input) {
-        UserApp user = appService.findOne(id);
-        if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        service.create(input, user);
+    @RequestMapping(value = "/report", method = RequestMethod.POST)
+    public ResponseEntity<?> report(@RequestBody UbicationModel ubication) {
+        UserApp user = appService.findOrCreate(ubication.getDocument(),
+                                               ubication.getType());
+        ubicationService.create(user, ubication.getLatitude(),
+                                      ubication.getLongitude());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/delete-data", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteData(@RequestBody LoginApp loginUser) {
+        UserApp user = appService.findOrCreate(loginUser.getDocument(), loginUser.getType());
+        ubicationService.deleteData(user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /*
     @RequestMapping(value = "/circle", method = RequestMethod.POST)
     public ResponseEntity<?> findByCircleArea(@RequestBody CircleArea input) {
         List<Ubication> circleArea = service.findByCircle(input.getCenter(), input.getRadius());
@@ -52,4 +51,5 @@ public class UbicationController {
         List<Ubication> boxArea = service.findByBox(input.getStart(), input.getFinal());
         return new ResponseEntity<>(boxArea, HttpStatus.OK);
     }
+    */
 }

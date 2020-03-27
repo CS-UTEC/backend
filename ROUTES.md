@@ -21,10 +21,20 @@
 }
 ```
 
-* Use this route to get the list of infected users
+* Use this route to get the list of confirmed users
 
-#### Route: /map/red-users
+#### Route: /map/data
 #### Method: GET
+####
+#### Body example
+```js
+{
+	"state": "confirmed",
+	"from": 1585339334175,
+	"to": 1585339334975
+}
+```
+
 #### Header:
 ```js
 "Bearer <token>"
@@ -33,24 +43,14 @@
 #### Response
 ```js
 [
-    {
-        "timeStamp": "2020-03-24T16:12:41.557Z",
-        "latitude": 12.0,
-        "longitude": 13.0,
-        "userAppId": "5e7a7f9ee3a7c2152101203b"
-    },
-    {
-        "timeStamp": "2020-03-24T17:18:24.202-05:00",
-        "latitude": 40.2434,
-        "longitude": 43.3243,
-        "userAppId": "5e7a7f9ee3a7c2152101203c"
-    },
-    {
-        "timeStamp": "2020-03-24T17:18:24.212-05:00",
-        "latitude": 35.32434,
-        "longitude": 23.233,
-        "userAppId": "5e7a7f9ee3a7c2152101203d"
-    }
+  {
+    "ubigeo": "ubigeo-code1",
+    "cases:" 12
+  },
+  {
+    "ubigeo": "ubigeo-code2",
+    "cases:" 100
+  }
 ]
 ```
 
@@ -75,6 +75,48 @@
 Check HTTP status
 
 
+#### Route: /notification/report-case
+#### Method: GET
+#### Body example
+```js
+{
+	"document": "12345678",
+	"type": "DNI",
+}
+```
+#### Response
+```js
+[
+    {
+        "id": "5e7e62e4dc7cb027e6cde9ce",
+        "timeStamp": "2020-03-27T15:32:36.686-05:00",
+        "message": "Mensaje de hoy",
+        "checked": false
+    },
+    {
+        "id": "5e7e62e1dc7cb027e6cde9cd",
+        "timeStamp": "2020-03-27T15:32:33.067-05:00",
+        "message": "Mensaje de hoy",
+        "checked": false
+    },
+    {
+        "id": "5e7e62dbdc7cb027e6cde9cc",
+        "timeStamp": "2020-03-27T15:32:27.894-05:00",
+        "message": "Mensaje de hoy",
+        "checked": false
+    },
+    {
+        "id": "5e7e6236dc7cb027e6cde9cb",
+        "timeStamp": "2020-03-27T15:29:41.988-05:00",
+        "message": "Mensaje de hoy",
+        "checked": false
+    }
+]
+```
+
+
+
+## Mobile
 
 
 ## Mobile
@@ -87,27 +129,23 @@ Check HTTP status
 ```js
 {
 	"document": "12345678",
-	"type": "dni",
-	"phone": "123456789"
+	"type": "DNI",
 }
 ```
 #### Response example
 ```js
 {
     "userId": 4,
-    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3OCIsInJvbGUiOiJVU0VSX0FQUCIsImlzcyI6Imh0dHA6Ly9kZXZnbGFuLmNvbSIsImlhdCI6MTU4NTA1NTU2NCwiZXhwIjoxNTg1MDczNTY0fQ.KSs0z2HlA-4S4tgnhHQh-9t7qdOgraKOOqovuyNV_go"
 }
 ```
 
-#### Route: /ubication/:id
+#### Route: /ubication/report
 #### Method: POST
-#### Header:
-```
-"Bearer <token>"
-```
 #### Body example
 ```js
 {
+	"document": "12345678",
+	"type": "DNI  ",
 	"latitude": 12,
 	"longitude": 13
 }
@@ -117,56 +155,73 @@ Check HTTP status
 Check HTTP status
 
 
+#### Route: /ubication/delete-data
+#### Method: DELETE
+#### Body example
+```js
+{
+	"document": "12345678",
+	"type": "DNI",
+}
+```
+#### Response
+
+Check HTTP status
+
+
 * Use this route to get all the notifications of a user
 
-#### Route: /notification/get-all/:userAppId
+#### Route: /notification/get-all
 #### Method: GET
-#### Header:
+#### Body example
 ```js
-"Bearer <token>"
+{
+	"document": "12345678",
+	"type": "DNI",
+}
 ```
-
 #### Response
 ```js
 [
     {
-        "id": "5e7abefaf5367f37d141a77d",
-        "timeStamp": "2020-03-25T02:16:26.123Z",
-        "message": "Hola mundo",
-        "checked": false,
-        "user": {
-            "id": "5e7a7f9ee3a7c2152101203c",
-            "document": "11111111",
-            "type": "dni",
-            "phone": "12121212",
-            "rol": null
-        }
+        "id": "5e7e62e4dc7cb027e6cde9ce",
+        "timeStamp": "2020-03-27T15:32:36.686-05:00",
+        "message": "Mensaje de hoy",
+        "checked": false
     },
     {
-        "id": "5e7ac8b37dfe8a62abffda5f",
-        "timeStamp": "2020-03-25T02:57:55.418Z",
-        "message": "Chao mundo",
-        "checked": false,
-        "user": {
-            "id": "5e7a7f9ee3a7c2152101203c",
-            "document": "11111111",
-            "type": "dni",
-            "phone": "12121212",
-            "rol": null
-        }
+        "id": "5e7e62e1dc7cb027e6cde9cd",
+        "timeStamp": "2020-03-27T15:32:33.067-05:00",
+        "message": "Mensaje de hoy",
+        "checked": false
+    },
+    {
+        "id": "5e7e62dbdc7cb027e6cde9cc",
+        "timeStamp": "2020-03-27T15:32:27.894-05:00",
+        "message": "Mensaje de hoy",
+        "checked": false
+    },
+    {
+        "id": "5e7e6236dc7cb027e6cde9cb",
+        "timeStamp": "2020-03-27T15:29:41.988-05:00",
+        "message": "Mensaje de hoy",
+        "checked": false
     }
 ]
 ```
 
 * Use this route to change the state of a notification
 
-#### Route: /notification/mark/:notification_id/:state
-state = "true" or "false"
+#### Route: /notification/mark
 #### Method: GET
-#### Header:
+#### Body example
 ```js
-"Bearer <token>"
+{
+	"document": "12345678",
+	"type": "dni",
+  "notificationId": "5e7ac8b37dfe8a62abffda5f",
+  "checked": true
+}
 ```
-
 ### Response
 Check HTTP status

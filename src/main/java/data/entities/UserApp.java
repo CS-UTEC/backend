@@ -19,9 +19,17 @@ public class UserApp implements Serializable {
     @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
     private String document;
 
+    // dni
+    // pasaporte
+    // carnet de extranjería
     private String type;
 
-    private String phone;
+    // confirmed
+    // recovered
+    // neutral
+    private String state;
+
+    // next step: use a enum to store 'type' and 'state'
 
     @DBRef
     private Role role;
@@ -60,12 +68,12 @@ public class UserApp implements Serializable {
         this.type = type;
     }
 
-    public String getPhone() {
-        return this.phone;
+    public String getState() {
+        return this.state;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setState(String state) {
+        this.state = state;
     }
 
 }

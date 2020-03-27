@@ -2,6 +2,8 @@ package data.models;
 
 public class UbicationModel {
 
+    private String document;
+    private String type;
     private Double longitude;
     private Double latitude;
 
@@ -22,4 +24,21 @@ public class UbicationModel {
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
+
+    public String getDocument(){
+        return this.document;
+    }
+
+    public void setDocument(String document) {
+        this.document = document;
+    }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
 }

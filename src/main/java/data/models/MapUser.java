@@ -1,45 +1,38 @@
 package data.models;
 
 import java.time.ZonedDateTime;
+import java.util.Date;
 
 public class MapUser {
-    private ZonedDateTime timeStamp;
-    private String userAppId;
-    private Double latitude;
-    private Double longitude;
+    private String state;
+    private Date from;
+    private Date to;
 
     public MapUser() {}
 
-    public void setUserAppId (String id) {
-      this.userAppId = id;
+    public void setState (String state) {
+        this.state = state;
     }
 
-    public String getUsetAppId () {
-      return this.userAppId;
+    public String getState () {
+        return this.state;
     }
 
-    public ZonedDateTime getTimeStamp(){
-        return this.timeStamp;
+    public void setFrom (Long timestampFrom) {
+        this.from = new Date(timestampFrom);
     }
 
-    public void setTimeStamp(ZonedDateTime timeStamp) {
-        this.timeStamp = timeStamp;
+    public Date getFrom () {
+        return this.from;
     }
 
-    public Double getLatitude() {
-        return this.latitude;
+    public void setTo (Long timestampTo) {
+        this.to = new Date(timestampTo);
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
+    public Date getTo () {
+        return this.to;
     }
 
-    public Double getLongitude() {
-        return this.longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
-    }
 
 }
