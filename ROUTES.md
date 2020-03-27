@@ -91,35 +91,7 @@ Check HTTP status
 }
 ```
 #### Response
-```js
-[
-    {
-        "id": "5e7e62e4dc7cb027e6cde9ce",
-        "timeStamp": "2020-03-27T15:32:36.686-05:00",
-        "message": "Mensaje de hoy",
-        "checked": false
-    },
-    {
-        "id": "5e7e62e1dc7cb027e6cde9cd",
-        "timeStamp": "2020-03-27T15:32:33.067-05:00",
-        "message": "Mensaje de hoy",
-        "checked": false
-    },
-    {
-        "id": "5e7e62dbdc7cb027e6cde9cc",
-        "timeStamp": "2020-03-27T15:32:27.894-05:00",
-        "message": "Mensaje de hoy",
-        "checked": false
-    },
-    {
-        "id": "5e7e6236dc7cb027e6cde9cb",
-        "timeStamp": "2020-03-27T15:29:41.988-05:00",
-        "message": "Mensaje de hoy",
-        "checked": false
-    }
-]
-```
-
+Check HTTP status
 
 
 ## Mobile
