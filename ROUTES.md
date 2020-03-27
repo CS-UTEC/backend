@@ -220,8 +220,8 @@ Check HTTP status
 #### Body example
 ```js
 {
-	"document": "12345678",
-	"type": "DNI",
+  "document": "12345678",
+  "type": "DNI",
   "notificationId": "5e7ac8b37dfe8a62abffda5f",
   "checked": true
 }
@@ -236,8 +236,8 @@ Check HTTP status
 #### Body example
 ```js
 {
-	"document": "12345678",
-	"type": "DNI",
+  "document": "12345678",
+  "type": "DNI",
   "result": [
     true,
     false,
@@ -255,9 +255,11 @@ Check HTTP status
 }
 ```
 ### Response
+```js
 {
   "score": 11,
   "message": "Llame a los servicios para realizar detección para SRAS-COV2 (COVID19)"
 }
+```
 
 
