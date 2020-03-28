@@ -21,7 +21,7 @@ public class MapController {
     @Autowired
     private MapService mapService;
 
-    @RequestMapping(value = "/data", method = RequestMethod.GET)
+    @RequestMapping(value = "/data", method = RequestMethod.POST)
     public ResponseEntity<?> getUsers(@RequestBody MapUser body) {
         return new ResponseEntity<>(mapService.getUsers(body), HttpStatus.OK);
     }

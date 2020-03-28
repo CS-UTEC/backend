@@ -24,7 +24,7 @@
 * Use this route to get the list of confirmed users
 
 #### Route: /map/data
-#### Method: GET
+#### Method: POST
 ####
 #### Body example
 ```js
