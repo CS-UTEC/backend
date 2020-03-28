@@ -1,4 +1,5 @@
 package data.models;
+import java.util.ArrayList;
 
 public class UbicationModel {
 

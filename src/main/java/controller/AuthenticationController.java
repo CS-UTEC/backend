@@ -41,6 +41,7 @@ public class AuthenticationController {
     @RequestMapping(value = "/app", method = RequestMethod.POST)
     public ResponseEntity<AuthToken> appLogin(@RequestBody LoginApp loginUser) {
         UserApp user = appService.findOrCreate(loginUser.getDocument(), loginUser.getType());
+        appService.updateUbication(user, loginUser);
         final String token = jwtTokenUtil.generateTokenForApp(user);
         return new ResponseEntity<>(new AuthToken(user.getId().toString(), token), HttpStatus.OK);
     }

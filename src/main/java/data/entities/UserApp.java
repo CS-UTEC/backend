@@ -28,6 +28,9 @@ public class UserApp implements Serializable {
     // recovered
     // neutral
     private String state;
+    private String departamento;
+    private String provincia;
+    private String distrito;
 
     // next step: use a enum to store 'type' and 'state'
 
@@ -76,4 +79,28 @@ public class UserApp implements Serializable {
         this.state = state;
     }
 
+    public String getDepartamento() {
+        return this.departamento;
+    }
+
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
+    }
+
+    public String getProvincia() {
+        return this.provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+
+    public String getDistrito() {
+        return this.distrito;
+    }
+
+    public void setDistrito(String distrito) {
+        this.distrito = distrito;
+    }
+   
 }

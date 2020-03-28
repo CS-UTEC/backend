@@ -55,6 +55,13 @@ public class UserAppService {
       return repository.save(user);       
     }
 
+    public UserApp updateUbication(UserApp user, LoginApp data) {
+        user.setDepartamento(data.getDepartamento());
+        user.setProvincia(data.getProvincia());
+        user.setDistrito(data.getDistrito());
+        return repository.save(user);
+    }
+
     public UserApp update(UserApp item){
         return repository.save(item);
     }

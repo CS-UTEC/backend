@@ -1,30 +1,15 @@
 package data.models;
 
+import java.util.ArrayList;
+
 public class SymptomModel {
 
+    private String type;
     private String document;
-    private Double longitude;
-    private Double latitude;
-    private Boolean cough;
-    private Boolean breathe;
-    private int fever;
+    private ArrayList<Boolean> result;
 
-    public SymptomModel() { }
-
-    public Double getLatitude() {
-        return this.latitude;
-    }
-
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
-    public Double getLongitude() {
-        return this.longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
+    public SymptomModel() {
+        result = new ArrayList<Boolean>(13);
     }
 
     public String getDocument() {
@@ -35,27 +20,19 @@ public class SymptomModel {
         this.document = document;
     }
 
-    public Boolean getCough() {
-        return cough;
+    public String getType() {
+        return this.type;
     }
 
-    public void setCough(Boolean cough) {
-        this.cough = cough;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public Boolean getBreathe() {
-        return breathe;
+    public ArrayList<Boolean> getResult() {
+        return this.result;
     }
 
-    public void setBreathe(Boolean breathe) {
-        this.breathe = breathe;
-    }
-
-    public int getFever() {
-        return fever;
-    }
-
-    public void setFever(int fever) {
-        this.fever = fever;
+    public void setResult(ArrayList<Boolean> result) {
+        this.result = result;
     }
 }

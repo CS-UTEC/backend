@@ -3,6 +3,7 @@ package controller;
 import data.entities.Symptom;
 import data.entities.UserApp;
 import data.models.SymptomModel;
+import data.models.Diagnostic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +22,9 @@ public class SymptomController {
     @Autowired
     private SymptomService symptomService;
 
-    @RequestMapping(value = "/reportSymptom", method = RequestMethod.POST)
+    @RequestMapping(value = "/report", method = RequestMethod.POST)
     public ResponseEntity<?> create(@RequestBody SymptomModel input) {
-        symptomService.create(input);
-        return new ResponseEntity<>(HttpStatus.OK);
+        UserApp user = appService.findOrCreate(input.getDocument(), input.getType());
+        return new ResponseEntity<>(symptomService.createAndGetDiagnostic(user, input), HttpStatus.OK);
     }
 }

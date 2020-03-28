@@ -108,6 +108,9 @@ Check HTTP status
 {
 	"document": "12345678",
 	"type": "DNI",
+	"departamento": "Lima",
+	"provincia": "Lima",
+	"distrito": "Barranco"
 }
 ```
 #### Response example
@@ -123,7 +126,7 @@ Check HTTP status
 ```js
 {
 	"document": "12345678",
-	"type": "DNI  ",
+	"type": "DNI",
 	"latitude": 12,
 	"longitude": 13
 }
@@ -233,9 +236,9 @@ Check HTTP status
 ### Response
 ```js
 {
-  "score": 11,
-  "message": "Llame a los servicios para realizar detección para SRAS-COV2 (COVID19)"
-}
+    "message": "Llame a los servicios para realizar detección para SARS-COV2 (COVID 19)",
+    "score": 15
+}  
 ```
 
 
