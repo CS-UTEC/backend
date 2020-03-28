@@ -44,7 +44,7 @@ public class MapService {
         Query query = new Query();
         query.addCriteria(Criteria.where("state").is(body.getState()));
         /*
-        query.addCriteria(Criteria.where("timeStamp")
+        query.addCriteria(Criteria.where("timeStamp.dateTime")
                                   .gte(body.getFrom())
                                   .lte(body.getTo()));
         */

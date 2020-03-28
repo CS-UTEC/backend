@@ -43,7 +43,7 @@ public class NotificationService {
         Query query = new Query();
         query.addCriteria(Criteria.where("user.id").is(user.getId()));
         // query.addCriteria(Criteria.where("checked").is(false));
-        query.with(Sort.by(Sort.Direction.DESC, "timeStamp"));
+        query.with(Sort.by(Sort.Direction.DESC, "timeStamp.dateTime"));
         return mongoTemplate.find(query, Notification.class);
     }
 
