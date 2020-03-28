@@ -83,6 +83,8 @@
 #### Response
 Check HTTP status
 
+* Use this data to report a recovered case
+
 #### Route: /notification/report-recover
 #### Method: POST
 #### Body example
