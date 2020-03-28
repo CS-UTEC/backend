@@ -51,18 +51,6 @@ public class NotificationService {
         return repository.findById(id).get();
     }
 
-    public void create(NotificationModel model){
-        for (String userAppId: model.getUserAppId()) {
-            Notification notification = new Notification();
-            notification.setMessage(model.getMessage());
-            notification.setChecked(false);
-            notification.setTimeStamp(ZonedDateTime.now());
-            UserApp user = userRepository.findById(userAppId).get();
-            notification.setUser(user);
-            repository.save(notification);
-        } 
-    }
-
     public Notification update (String id, Boolean checked) {
         Notification notification = repository.findById(id).get();
         notification.setChecked(checked);
@@ -83,6 +71,50 @@ public class NotificationService {
         }
         return repository.save(item);
     }
+
+    public void notifyDepartamento (NotificationModel input) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("departamento").is(input.getDepartamento()));
+        for (UserApp user: mongoTemplate.find(query, UserApp.class)) {
+            Notification notification = new Notification();
+            notification.setMessage(input.getMessage());
+            notification.setChecked(false);
+            notification.setTimeStamp(ZonedDateTime.now());
+            notification.setUser(user);
+            repository.save(notification);
+        } 
+    }
+
+    public void notifyProvincia (NotificationModel input) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("departamento").is(input.getDepartamento()));
+        query.addCriteria(Criteria.where("provincia").is(input.getProvincia()));
+        for (UserApp user: mongoTemplate.find(query, UserApp.class)) {
+            Notification notification = new Notification();
+            notification.setMessage(input.getMessage());
+            notification.setChecked(false);
+            notification.setTimeStamp(ZonedDateTime.now());
+            notification.setUser(user);
+            repository.save(notification);
+        } 
+    }
+
+    public void notifyDistrito (NotificationModel input) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("departamento").is(input.getDepartamento()));
+        query.addCriteria(Criteria.where("provincia").is(input.getProvincia()));
+        query.addCriteria(Criteria.where("distrito").is(input.getDistrito()));
+        for (UserApp user: mongoTemplate.find(query, UserApp.class)) {
+            Notification notification = new Notification();
+            notification.setMessage(input.getMessage());
+            notification.setChecked(false);
+            notification.setTimeStamp(ZonedDateTime.now());
+            notification.setUser(user);
+            repository.save(notification);
+        } 
+    }
+
+
 
     public void delete(String id){
         repository.delete(findOne(id));

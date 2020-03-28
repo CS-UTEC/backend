@@ -1,22 +1,13 @@
 package data.models;
 
-import java.util.ArrayList;
+public class MapReport {
 
-public class NotificationModel {
-    private String message;
     private String departamento;
     private String provincia;
     private String distrito;
+    private Integer casos;
 
-    public NotificationModel() {}
-
-    public void setMessage (String message) {
-        this.message = message;
-    }
-
-    public String getMessage () {
-        return this.message;
-    }
+    public MapReport() {}
 
     public String getDepartamento() {
         return this.departamento;
@@ -42,4 +33,12 @@ public class NotificationModel {
         this.distrito = distrito;
     }
 
-};
+    public Integer getCasos() {
+        return this.casos;
+    }
+
+    public void setCasos(Integer casos) {
+        this.casos = casos;
+    }
+
+}

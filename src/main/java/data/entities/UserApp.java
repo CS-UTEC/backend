@@ -1,6 +1,9 @@
 package data.entities;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.IndexDirection;
@@ -36,6 +39,9 @@ public class UserApp implements Serializable {
 
     @DBRef
     private Role role;
+
+    @JsonIgnore
+    private ZonedDateTime timeStamp;
 
     public UserApp() {}
 
@@ -103,4 +109,12 @@ public class UserApp implements Serializable {
         this.distrito = distrito;
     }
    
+    public ZonedDateTime getTimeStamp(){
+        return this.timeStamp;
+    }
+
+    public void setTimeStamp(ZonedDateTime timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
 }

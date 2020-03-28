@@ -4,11 +4,15 @@ import data.entities.Ubication;
 import data.entities.UserApp;
 import data.models.MapUser;
 import data.models.UbicationModel;
+import data.models.MapReport;
 import data.repositories.UserAppRepository;
 import data.repositories.UbicationRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 import java.lang.reflect.Field;
 import java.time.ZonedDateTime;
@@ -27,39 +31,43 @@ public class MapService {
     @Autowired
     private UbicationRepository repository;
 
-    public List<MapUser> getUsers(String state){
-        /* TO DO
-        Map<String, MapUser> redUsers = new HashMap<>();
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
-        for (Ubication item :repository.findAll()) {
-            if (!redUsers.containsKey(item.getUser().getId())) {
-              MapUser mapUser = new MapUser();
-              mapUser.setUserAppId(item.getUser().getId());
-              mapUser.setLongitude(item.getLocation().getX());
-              mapUser.setLatitude(item.getLocation().getY());
-              mapUser.setTimeStamp(item.getTimeStamp());
-              redUsers.put(item.getUser().getId(), mapUser);
-            } else {
-              ZonedDateTime prev = redUsers.get(item.getUser().getId()).getTimeStamp();
-              ZonedDateTime cur = item.getTimeStamp();
-              if (prev.compareTo(cur) < 0) {
-                MapUser mapUser = new MapUser();
-                mapUser.setUserAppId(item.getUser().getId());
-                mapUser.setLongitude(item.getLocation().getX());
-                mapUser.setLatitude(item.getLocation().getY());
-                mapUser.setTimeStamp(item.getTimeStamp());
-                redUsers.put(item.getUser().getId(), mapUser);
-              }
-            }
-        }
+    Boolean equal (UserApp user1, UserApp user2) {
+        return user1.getDepartamento().equals(user2.getDepartamento()) &&
+               user1.getProvincia().equals(user2.getProvincia()) &&
+               user1.getDistrito().equals(user2.getDistrito());
+    }
 
-        List<MapUser> items = new ArrayList<>();
-        for (MapUser item: redUsers.values()) {
-          items.add(item);
-        }
-        return items;
+    public List<MapReport> getUsers(MapUser body){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("state").is(body.getState()));
+        /*
+        query.addCriteria(Criteria.where("timeStamp")
+                                  .gte(body.getFrom())
+                                  .lte(body.getTo()));
         */
-        return null;
+        ArrayList <UserApp> users = new ArrayList <>();
+        for (UserApp item: mongoTemplate.find(query, UserApp.class)) {
+            users.add(item);
+        }
+        List <MapReport> report = new ArrayList <>();
+        for (int i = 0; i < users.size(); i++) {
+            int j = i;
+            while (j + 1 < users.size() &&
+                   equal(users.get(i), users.get(j + 1))) {
+                j++;
+            }
+            MapReport item = new MapReport();
+            item.setDepartamento(users.get(i).getDepartamento());
+            item.setProvincia(users.get(i).getProvincia());
+            item.setDistrito(users.get(i).getDistrito());
+            item.setCasos(j - i + 1);
+            report.add(item);
+            i = j;
+        }
+        return report;
     }
 
 }

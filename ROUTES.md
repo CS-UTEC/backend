@@ -43,46 +43,36 @@
 #### Response
 ```js
 [
-  {
-    "ubigeo": "ubigeo-code1",
-    "cases:" 12
-    "latitude": 12,
-    "longitude": 14
-  },
-  {
-    "ubigeo": "ubigeo-code2",
-    "cases:" 100
-    "latitude": 12,
-    "longitude": 20
-  }
+    {
+        "departamento": "Lima",
+        "provincia": "Huaras",
+        "distrito": "Comas",
+        "casos": 2
+    },
+    {
+        "departamento": "Lima",
+        "provincia": "Lima",
+        "distrito": "Comas",
+        "casos": 1
+    },
+    {
+        "departamento": "Lima",
+        "provincia": "Lima",
+        "distrito": "Barranco",
+        "casos": 1
+    }
 ]
 ```
-
-* Use this route to notify a message to a list of users
-
-#### Route: /notification/notify
-#### Method: POST
-#### Header:
-```js
-"Bearer <token>"
-```
-
-#### Body Example
-```js
-{
-	"message": "Hola mundo",
-	"userAppId": ["5e7a7f9ee3a7c2152101203c", "5e7a7f9ee3a7c2152101203d"]
-}
-```
-
-#### Response
-Check HTTP status
 
 * Use this data to report a confirmed case (the server will send the
   notifications to the required people)
 
 #### Route: /notification/report-case
-#### Method: GET
+#### Method: POST
+#### Header:
+```js
+"Bearer <token>"
+```
 #### Body example
 ```js
 {
@@ -92,6 +82,79 @@ Check HTTP status
 ```
 #### Response
 Check HTTP status
+
+#### Route: /notification/report-recover
+#### Method: POST
+#### Body example
+```js
+{
+	"document": "12345678",
+	"type": "DNI",
+}
+```
+#### Response
+Check HTTP status
+
+
+* Use this data to report a message to a departamento
+
+#### Route: /notification/departamento
+#### Method: POST
+#### Header:
+```js
+"Bearer <token>"
+```
+#### Body example
+```js
+{
+	"departamento": "Lima",
+	"message": "Hola mundo"
+}
+```
+#### Response
+Check HTTP status
+
+
+* Use this data to report a message to a provincia
+
+#### Route: /notification/provincia
+#### Method: POST
+#### Header:
+```js
+"Bearer <token>"
+```
+#### Body example
+```js
+{
+	"departamento": "Lima",
+	"provincia": "Lima",
+	"message": "Hola mundo"
+}
+```
+#### Response
+Check HTTP status
+
+
+* Use this data to report a message to a distrito
+
+#### Route: /notification/distrito
+#### Method: POST
+#### Header:
+```js
+"Bearer <token>"
+```
+#### Body example
+```js
+{
+	"departamento": "Lima",
+	"provincia": "Lima",
+	"distrito": "Comas",
+	"message": "Hola mundo"
+}
+```
+#### Response
+Check HTTP status
+
 
 
 ## Mobile

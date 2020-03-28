@@ -24,12 +24,6 @@ public class NotificationController {
     @Autowired
     private UserAppService appService;
 
-    @RequestMapping(value = "/notify", method = RequestMethod.POST)
-    public ResponseEntity<?> notify(@RequestBody NotificationModel body) {
-        notificationService.create(body);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     @RequestMapping(value = "/get-all", method = RequestMethod.GET)
     public ResponseEntity<?> getAll(@RequestBody LoginApp loginUser) {
         UserApp user = appService.findOrCreate(loginUser.getDocument(), loginUser.getType());
@@ -45,11 +39,40 @@ public class NotificationController {
 
     @RequestMapping(value = "/report-case", method = RequestMethod.POST)
     public ResponseEntity<?> reportCase(@RequestBody LoginApp loginUser) {
-        UserApp user = appService.findOrCreate(loginUser.getDocument(), loginUser.getType());
-        // TO DO
+        UserApp user = appService.findOneByDocumentAndType(loginUser.getDocument(), loginUser.getType());
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        appService.setConfirmed(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/report-recover", method = RequestMethod.POST)
+    public ResponseEntity<?> reportConfirmed(@RequestBody LoginApp loginUser) {
+        UserApp user = appService.findOneByDocumentAndType(loginUser.getDocument(), loginUser.getType());
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        appService.setRecovered(user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
+    @RequestMapping(value = "/departamento", method = RequestMethod.POST)
+    public ResponseEntity<?> notifyDepartamento(@RequestBody NotificationModel body) {
+        notificationService.notifyDepartamento(body);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/provincia", method = RequestMethod.POST)
+    public ResponseEntity<?> notifyProvincia(@RequestBody NotificationModel body) {
+        notificationService.notifyProvincia(body);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/distrito", method = RequestMethod.POST)
+    public ResponseEntity<?> notifyDistrito(@RequestBody NotificationModel body) {
+        notificationService.notifyDistrito(body);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }
