@@ -112,7 +112,7 @@ public class UserAppService {
         user.setState("confirmed");
         repository.save(user);
         String message = "Cuidado! Has estado cerca de un caso confirmado de COVID19";
-        notifyPossibleCases(user, 10, 7, 1, message);
+//        notifyPossibleCases(user, 10, 7, 1, message);
         return user;
     }
 
