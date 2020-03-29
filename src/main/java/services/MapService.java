@@ -43,11 +43,9 @@ public class MapService {
     public List<MapReport> getUsers(MapUser body){
         Query query = new Query();
         query.addCriteria(Criteria.where("state").is(body.getState()));
-        /*
         query.addCriteria(Criteria.where("timeStamp.dateTime")
                                   .gte(body.getFrom())
                                   .lte(body.getTo()));
-        */
         ArrayList <UserApp> users = new ArrayList <>();
         for (UserApp item: mongoTemplate.find(query, UserApp.class)) {
             users.add(item);
