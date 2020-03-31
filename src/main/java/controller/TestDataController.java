@@ -11,9 +11,11 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import services.AuthService;
+import services.DistrictService;
 import services.RoleService;
 import services.UserAppService;
 import services.UbicationService;
+import data.entities.District;
 import data.entities.Role;
 import data.entities.Ubication;
 import data.entities.UserWeb;
@@ -38,6 +40,9 @@ public class TestDataController {
 
     @Autowired
     private UbicationService ubicationService;
+
+    @Autowired
+    private DistrictService districtService;
 
     /*
     private UserApp createUserApp(String document, String phone) {
@@ -65,34 +70,58 @@ public class TestDataController {
         createLocation(35.32434, 23.233, user2);
         return "OK";
     }
+    */
+
+    private UserApp createUserApp(String document, District district) {
+        if (district == null) {
+            return null;
+        }
+        Random rand = new Random();
+        UserApp userApp = new UserApp();
+        userApp.setDocument(document);
+        userApp.setType("DNI");
+        userApp.setDepartamento(district.getDepartment());
+        userApp.setProvincia(district.getProvince());
+        userApp.setDistrito(district.getName());
+        
+        Integer p = rand.nextInt(11);
+
+        if (p > 8) {
+            userApp.setState("confirmed");
+        } else {
+            if (p > 5) {
+                userApp.setState("recovered");
+            } else {
+                userApp.setState("neutral");
+            }
+        }
+        return appService.create(userApp);
+      }
 
     @RequestMapping(value = "/gen/{nUsers}", method = RequestMethod.GET)
     public String usersGenerator(@PathVariable Long nUsers) {
-        UserApp user = null;
+        District district = null;
         Random rand = new Random();
         int cod;
         Double lat, lon;
         for (int i = 0; i < nUsers; i++) {
             cod = rand.nextInt(89999999) + 10000000;
-            lat = (rand.nextInt(14908977 - 5641254) + 5641254.0)/1000000;
-            lon = (rand.nextInt(78648414 - 71676855) + 71676855.0)/1000000;
-            user = createUserApp(Integer.toString(cod), Integer.toString(cod));
-            createLocation(-lat, -lon, user);
+            lat = (rand.nextInt(15635723 - 3821286) + 3821286.0)/1000000;
+            lon = (rand.nextInt(81947887 - 67767339) + 67767339.0)/1000000;
+            district = districtService.findOneByPointIntersects(-lon, -lat);
+            createUserApp(Integer.toString(cod), district);
         }
         return "OK";
     }
 
     @RequestMapping(value = "/gen/deleteall", method = RequestMethod.GET)
     public String usersDestructor() {
-        for (Ubication ubication : ubicationService.findAll()) {
-            ubicationService.delete(ubication.getId());
-        }
         for (UserApp userApp : appService.findAll()) {
             appService.delete(userApp.getId());
         }
         return "OK";
     }
-    */
+    
 
     @RequestMapping(value = "/data", method = RequestMethod.GET)
     public String generateData() {
