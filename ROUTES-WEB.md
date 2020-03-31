@@ -154,3 +154,11 @@ Check HTTP status
 ```
 #### Response
 Check HTTP status
+
+
+* Use this data to generate "N" aprox. fake users
+
+#### Route: /test/gen/{number of users}
+#### Method: GET
+#### Response
+Check HTTP status
