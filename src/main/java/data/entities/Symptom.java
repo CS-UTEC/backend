@@ -16,7 +16,6 @@ import java.util.ArrayList;
 @Document(collection = "symptom")
 public class Symptom implements Serializable {
 
-
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -62,6 +61,25 @@ public class Symptom implements Serializable {
 
     public void setUser(UserApp user) {
         this.user = user;
+    }
+
+    public static String[] getQuestions () {
+        String[] questions = {
+            "¿Estás teniendo tos?",
+            "¿Estás teniendo escalofríos?",
+            "En este momento o en los días previos, ¿has tenido diarrea?",
+            "¿Tienes dolor de garganta?",
+            "¿Estás teniendo dolor de cuerpo y malestar general?",
+            "¿Estás presentando dolores de cabeza?",
+            "¿Has tenido fiebre? [para fines correctos más de 37.8° C]",
+            "¿Has perdido el olfato?",
+            "¿Estás teniendo dificultad para respirar? [como si no entrara el aire al pecho]",
+            "¿Estás experimentando fatiga? [Real deterioro de tus movimientos y ganas de hacer algo]",
+            "¿Has viajado en los últimos 14 días?",
+            "¿Has viajado o estado en un área afectada por COVID19?",
+            "¿Has estado en contacto directo o cuidado a algun paciente COVID19 positivo?"
+        };
+        return questions;
     }
 
     public int computeScore() {

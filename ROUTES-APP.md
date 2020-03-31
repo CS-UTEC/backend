@@ -26,7 +26,6 @@
 
 #### Route: /ubication/interval
 #### Method: GET
-#### Body example
 #### Response example
 ```js
 {
@@ -150,9 +149,30 @@ Check HTTP status
 ### Response
 ```js
 {
-    "message": "Llame a los servicios para realizar detección para SARS-COV2 (COVID 19)",
-    "score": 15
-}  
+    "questions": [
+        "¿Estás teniendo tos?",
+        "¿Estás teniendo escalofríos?",
+        "En este momento o en los días previos, ¿has tenido diarrea?",
+        "¿Tienes dolor de garganta?",
+        "¿Estás teniendo dolor de cuerpo y malestar general?",
+        "¿Estás presentando dolores de cabeza?",
+        "¿Has tenido fiebre? [para fines correctos más de 37.8° C]",
+        "¿Has perdido el olfato?",
+        "¿Estás teniendo dificultad para respirar? [como si no entrara el aire al pecho]",
+        "¿Estás experimentando fatiga? [Real deterioro de tus movimientos y ganas de hacer algo]",
+        "¿Has viajado en los últimos 14 días?",
+        "¿Has viajado o estado en un área afectada por COVID19?",
+        "¿Has estado en contacto directo o cuidado a algun paciente COVID19 positivo?"
+    ]
+}
+```
+
+* Use this route to get the questions of the test
+
+#### Route: /symptom/questions
+#### Method: GET
+#### Response example
+```js
 ```
 
 

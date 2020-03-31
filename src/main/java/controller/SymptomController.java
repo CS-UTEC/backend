@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import services.SymptomService;
 import services.UserAppService;
+import java.util.HashMap;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -21,6 +22,13 @@ public class SymptomController {
 
     @Autowired
     private SymptomService symptomService;
+
+    @RequestMapping(value = "/questions", method = RequestMethod.GET)
+    public ResponseEntity<?> questions() {
+        HashMap <String, String[]> map = new HashMap();
+        map.put("questions", Symptom.getQuestions());
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/report", method = RequestMethod.POST)
     public ResponseEntity<?> create(@RequestBody SymptomModel input) {
