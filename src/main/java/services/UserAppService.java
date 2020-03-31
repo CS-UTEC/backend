@@ -74,10 +74,46 @@ public class UserAppService {
         return repository.save(user);
     }
 
+    /*
+     * Notify each user that during the last 'days' have been
+     * near a confirmed case in a radio of 'radius' meter in a
+     * interval of +- x hours
+     */
+    public void notifyPossibleCases (UserApp confirmedUser, 
+                                     Double radius,
+                                     Integer days,
+                                     Integer interval,
+                                     String message) {
+        /* Algorithm notification pseudocode
+          for (each user where user.state != "confirmed") {
+            Boolean notify = false;
+            for (each ubication of user of the last 'days') {
+              Query query = new Query();
+              query.addCriteria(places in a circle
+                                of radio 'radius' around
+                                ubication);
+              query.addCriteria(timeStamp
+                          .gt(ubication.timeStamp - 'interval')
+                          .lt(ubication.timeStamp + 'interval'));
+              if (mongoTemplate.findOne(query, Ubication.class)) {
+                notify = true;
+                break;
+              }
+              
+            }
+            if (notify) {
+              notification.create(User, messag)
+            }
+          }
+        */
+    }
+
     public UserApp setConfirmed (UserApp user) {
         user.setState("confirmed");
-        // TO DO: update report to potencial infected people
-        return repository.save(user);
+        repository.save(user);
+        String message = "Cuidado! Has estado cerca de un caso confirmado de COVID19";
+//        notifyPossibleCases(user, 10, 7, 1, message);
+        return user;
     }
 
     public UserApp update(UserApp item){
