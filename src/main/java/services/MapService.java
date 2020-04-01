@@ -95,18 +95,32 @@ public class MapService {
         return users.size();
     }
 
-    public List<MapReport> getUsers(MapUser body){
-        List<MapReport> report = new ArrayList<>();
-        String state = body.getState();
+    public HashMap <String, List<MapReport>> getUsers(MapUser body){
+        List<MapReport> report_confirmed = new ArrayList<>();
+        List<MapReport> report_recovered = new ArrayList<>();
+        List<MapReport> report_neutral = new ArrayList<>();
         ZonedDateTime from = body.getFrom();
         ZonedDateTime to = body.getTo();
         for (District district: districtRepository.findAll()) {
-            Integer ubigeo = district.getUbigeo();
-            Integer cases = getNumberCases(ubigeo, state, from, to);
-            if (cases != 0) {
-              report.add(new MapReport(ubigeo, cases));
+            String ubigeo_str = district.getUbigeo();
+            Integer ubigeo = Integer.parseInt(ubigeo_str);
+            Integer confirmed_cases = getNumberCases(ubigeo, "confirmed", from, to);
+            if (confirmed_cases != 0) {
+              report_confirmed.add(new MapReport(ubigeo_str, confirmed_cases));
+            }
+            Integer recovered_cases = getNumberCases(ubigeo, "recovered", from, to);
+            if (recovered_cases != 0) {
+              report_recovered.add(new MapReport(ubigeo_str, recovered_cases));
+            }
+            Integer neutral_cases = getNumberCases(ubigeo, "neutral", from, to);
+            if (neutral_cases != 0) {
+              report_neutral.add(new MapReport(ubigeo_str, neutral_cases));
             }
         }
+        HashMap <String, List <MapReport>> report = new HashMap();
+        report.put("confirmed", report_confirmed);
+        report.put("recovered", report_recovered);
+        report.put("neutral", report_neutral);
         return report;
     }
 

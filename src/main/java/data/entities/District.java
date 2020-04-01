@@ -42,8 +42,9 @@ public class District implements Serializable {
         this.name = name;
     }
 
-    public Integer getUbigeo() {
-        return this.ubigeo;
+    public String getUbigeo() {
+        String code = String.format("%06d", this.ubigeo);
+        return code;
     }
 
     public void setUbigeo(Integer ubigeo) {

@@ -19,7 +19,7 @@
 }
 ```
 
-* Use this route to get the list of confirmed users
+* Use this route to get the list of user. It just returns the ubigeos with cases >= 1.
 
 #### Route: /map/data
 #### Method: POST
@@ -27,7 +27,6 @@
 #### Body example
 ```js
 {
-	"state": "neutral",
 	"from": 1485339334175,
 	"to": 1885339334975
 }
@@ -40,40 +39,214 @@
 
 #### Response
 ```js
-[
-    {
-        "ubigeo": 40505,
-        "casos": 2
-    },
-    {
-        "ubigeo": 211001,
-        "casos": 2
-    },
-    {
-        "ubigeo": 211202,
-        "casos": 1
-    },
-    {
-        "ubigeo": 210808,
-        "casos": 1
-    },
-    {
-        "ubigeo": 50613,
-        "casos": 2
-    },
-    {
-        "ubigeo": 210211,
-        "casos": 1
-    },
-    {
-        "ubigeo": 30301,
-        "casos": 1
-    },
-    {
-        "ubigeo": 221001,
-        "casos": 1
-    }
-]
+{
+    "recovered": [
+        {
+            "ubigeo": "050608",
+            "casos": 1
+        },
+        {
+            "ubigeo": "010306",
+            "casos": 1
+        },
+        {
+            "ubigeo": "160201",
+            "casos": 1
+        },
+        {
+            "ubigeo": "200406",
+            "casos": 1
+        },
+        {
+            "ubigeo": "080905",
+            "casos": 1
+        },
+        {
+            "ubigeo": "170301",
+            "casos": 1
+        },
+        {
+            "ubigeo": "250104",
+            "casos": 1
+        },
+        {
+            "ubigeo": "130810",
+            "casos": 1
+        },
+        {
+            "ubigeo": "060203",
+            "casos": 1
+        },
+        {
+            "ubigeo": "220503",
+            "casos": 1
+        },
+        {
+            "ubigeo": "160504",
+            "casos": 1
+        },
+        {
+            "ubigeo": "200302",
+            "casos": 1
+        },
+        {
+            "ubigeo": "200401",
+            "casos": 1
+        },
+        {
+            "ubigeo": "160103",
+            "casos": 1
+        },
+        {
+            "ubigeo": "010403",
+            "casos": 1
+        }
+    ],
+    "neutral": [
+        {
+            "ubigeo": "050705",
+            "casos": 1
+        },
+        {
+            "ubigeo": "050601",
+            "casos": 1
+        },
+        {
+            "ubigeo": "080803",
+            "casos": 1
+        },
+        {
+            "ubigeo": "110104",
+            "casos": 1
+        },
+        {
+            "ubigeo": "060801",
+            "casos": 1
+        },
+        {
+            "ubigeo": "160201",
+            "casos": 1
+        },
+        {
+            "ubigeo": "110101",
+            "casos": 1
+        },
+        {
+            "ubigeo": "050301",
+            "casos": 2
+        },
+        {
+            "ubigeo": "051011",
+            "casos": 1
+        },
+        {
+            "ubigeo": "151014",
+            "casos": 1
+        },
+        {
+            "ubigeo": "250201",
+            "casos": 1
+        },
+        {
+            "ubigeo": "120804",
+            "casos": 1
+        },
+        {
+            "ubigeo": "080902",
+            "casos": 1
+        },
+        {
+            "ubigeo": "170101",
+            "casos": 1
+        },
+        {
+            "ubigeo": "250401",
+            "casos": 2
+        },
+        {
+            "ubigeo": "221002",
+            "casos": 1
+        },
+        {
+            "ubigeo": "130401",
+            "casos": 1
+        },
+        {
+            "ubigeo": "140107",
+            "casos": 1
+        },
+        {
+            "ubigeo": "220603",
+            "casos": 2
+        },
+        {
+            "ubigeo": "140307",
+            "casos": 1
+        },
+        {
+            "ubigeo": "160511",
+            "casos": 1
+        },
+        {
+            "ubigeo": "160702",
+            "casos": 1
+        },
+        {
+            "ubigeo": "200114",
+            "casos": 1
+        },
+        {
+            "ubigeo": "160103",
+            "casos": 1
+        }
+    ],
+    "confirmed": [
+        {
+            "ubigeo": "090602",
+            "casos": 1
+        },
+        {
+            "ubigeo": "090607",
+            "casos": 1
+        },
+        {
+            "ubigeo": "090507",
+            "casos": 1
+        },
+        {
+            "ubigeo": "150807",
+            "casos": 1
+        },
+        {
+            "ubigeo": "250301",
+            "casos": 1
+        },
+        {
+            "ubigeo": "130807",
+            "casos": 1
+        },
+        {
+            "ubigeo": "130614",
+            "casos": 1
+        },
+        {
+            "ubigeo": "250101",
+            "casos": 1
+        },
+        {
+            "ubigeo": "200404",
+            "casos": 1
+        },
+        {
+            "ubigeo": "200114",
+            "casos": 1
+        },
+        {
+            "ubigeo": "010402",
+            "casos": 1
+        }
+    ]
+}
 ```
 
 * Use this data to report a confirmed case (the server will send the

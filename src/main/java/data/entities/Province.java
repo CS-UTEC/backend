@@ -40,8 +40,9 @@ public class Province implements Serializable {
         this.name = name;
     }
 
-    public Integer getUbigeo() {
-        return this.ubigeo;
+    public String getUbigeo() {
+        String code = String.format("%04d", this.ubigeo);
+        return code;
     }
 
     public void setUbigeo(Integer ubigeo) {
