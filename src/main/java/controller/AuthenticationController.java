@@ -44,7 +44,6 @@ public class AuthenticationController {
         if (user == null) {
             user = appService.create(loginUser.getDocument(), loginUser.getType());
         }
-        user = appService.updateUbication(user, loginUser);
         return new ResponseEntity<>(new AuthToken(user.getId().toString(), null), HttpStatus.OK);
     }
 }

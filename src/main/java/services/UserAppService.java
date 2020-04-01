@@ -67,13 +67,6 @@ public class UserAppService {
         return create(document, type);
     }
 
-    public UserApp updateUbication(UserApp user, LoginApp data) {
-        user.setDepartamento(data.getDepartamento());
-        user.setProvincia(data.getProvincia());
-        user.setDistrito(data.getDistrito());
-        return repository.save(user);
-    }
-
     public UserApp setRecovered (UserApp user) {
         user.setState("recovered");
         return repository.save(user);

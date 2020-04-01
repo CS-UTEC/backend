@@ -1,9 +1,13 @@
 package services;
 
 import data.entities.Ubication;
+import data.entities.District;
+import data.entities.Province;
+import data.entities.Department;
 import data.entities.UserApp;
 import data.models.UbicationModel;
 import data.repositories.UbicationRepository;
+import data.repositories.UserAppRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,12 +24,16 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 
 @Service
 public class UbicationService {
 
     @Autowired
     private UbicationRepository repository;
+
+    @Autowired
+    private UserAppRepository userRepository;
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -43,10 +51,45 @@ public class UbicationService {
         return repository.findById(id).get();
     }
 
+    public String getDistrito (Double latitude, Double longitude) {
+        Query query = new Query();      
+        query.addCriteria(Criteria.where("geometry").intersects(new GeoJsonPoint(longitude, latitude)));
+        List <District> districts = mongoTemplate.find(query, District.class);
+        for (District district: districts) {
+            return district.getName();
+        }
+        return null;
+    }
+
+    public String getProvincia (Double latitude, Double longitude) {
+        Query query = new Query();      
+        query.addCriteria(Criteria.where("geometry").intersects(new GeoJsonPoint(longitude, latitude)));
+        List <Province> provinces = mongoTemplate.find(query, Province.class);
+        for (Province province: provinces) {
+            return province.getName();
+        }
+        return null;
+    }
+
+    public String getDepartamento (Double latitude, Double longitude) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("geometry").intersects(new GeoJsonPoint(longitude, latitude)));
+        List <Department> departments = mongoTemplate.find(query, Department.class);
+        for (Department department: departments) {
+            return department.getName();
+        }
+        return null;
+    }
+
+
     public Ubication create(UserApp user, Double latitude, Double longitude){
         Ubication ubication = new Ubication();
         ubication.setTimeStamp(ZonedDateTime.now());
         ubication.setLocation(longitude, latitude);
+        user.setDistrito(getDistrito(latitude, longitude));
+        user.setProvincia(getProvincia(latitude, longitude));
+        user.setDepartamento(getDepartamento(latitude, longitude));
+        userRepository.save(user);
         ubication.setUser(user);
         return repository.save(ubication);
     }
