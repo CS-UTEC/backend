@@ -1,5 +1,6 @@
 package data.models;
 
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
 
@@ -22,16 +23,16 @@ public class MapUser {
         this.from = new Date(timestampFrom);
     }
 
-    public Date getFrom () {
-        return this.from;
+    public ZonedDateTime getFrom () {
+        return ZonedDateTime.ofInstant(this.from.toInstant(), ZoneId.systemDefault());
     }
 
     public void setTo (Long timestampTo) {
         this.to = new Date(timestampTo);
     }
 
-    public Date getTo () {
-        return this.to;
+    public ZonedDateTime getTo () {
+        return ZonedDateTime.ofInstant(this.to.toInstant(), ZoneId.systemDefault());
     }
 
 

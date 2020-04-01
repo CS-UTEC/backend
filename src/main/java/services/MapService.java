@@ -15,6 +15,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 import java.lang.reflect.Field;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,7 @@ public class MapService {
     public List<MapReport> getUsers(MapUser body){
         Query query = new Query();
         query.addCriteria(Criteria.where("state").is(body.getState()));
-        query.addCriteria(Criteria.where("timeStamp.dateTime")
+        query.addCriteria(Criteria.where("timeStamp")
                                   .gte(body.getFrom())
                                   .lte(body.getTo()));
         ArrayList <UserApp> users = new ArrayList <>();
