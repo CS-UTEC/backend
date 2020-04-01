@@ -89,6 +89,7 @@ public class UbicationService {
         user.setDistrito(getDistrito(latitude, longitude));
         user.setProvincia(getProvincia(latitude, longitude));
         user.setDepartamento(getDepartamento(latitude, longitude));
+        user.setTimeStamp(ZonedDateTime.now());
         userRepository.save(user);
         ubication.setUser(user);
         return repository.save(ubication);

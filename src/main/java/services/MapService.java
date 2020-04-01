@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Date;
 
 @Service
 public class MapService {
@@ -63,34 +64,51 @@ public class MapService {
                user1.getDistrito().equals(user2.getDistrito());
     }
 
-    public List<MapReport> getUsers(MapUser body){
+    public Integer getNumberCases (Integer ubigeo, String state, ZonedDateTime from, ZonedDateTime to) {
         Query query = new Query();
-        query.addCriteria(Criteria.where("state").is(body.getState()));
+        query.addCriteria(Criteria.where("state").is(state));
         query.addCriteria(Criteria.where("timeStamp")
-                                  .gte(body.getFrom())
-                                  .lte(body.getTo()));
-        ArrayList <UserApp> users = new ArrayList <>();
-        for (UserApp item: mongoTemplate.find(query, UserApp.class)) {
-            users.add(item);
+                                  .gte(from)
+                                  .lte(to));
+        Department department = departmentRepository.findByUbigeo(ubigeo);
+        if (department != null) {
+          query.addCriteria(Criteria.where("departamento").
+                            is(department.getName()));
         }
-        List <MapReport> report = new ArrayList <>();
-        for (int i = 0; i < users.size(); i++) {
-            int j = i;
-            while (j + 1 < users.size() &&
-                   equal(users.get(i), users.get(j + 1))) {
-                j++;
+        Province province = provinceRepository.findByUbigeo(ubigeo);
+        if (province != null) {
+          query.addCriteria(Criteria.where("departamento").
+                            is(province.getDepartment()));
+          query.addCriteria(Criteria.where("provincia").
+                            is(province.getName()));
+        }
+        District district = districtRepository.findByUbigeo(ubigeo);
+        if (district != null) {
+          query.addCriteria(Criteria.where("departamento").
+                            is(district.getDepartment()));
+          query.addCriteria(Criteria.where("provincia").
+                            is(district.getProvince()));
+          query.addCriteria(Criteria.where("distrito").
+                            is(district.getName()));
+        }
+        List <UserApp> users = mongoTemplate.find(query, UserApp.class);
+        return users.size();
+    }
+
+    public List<MapReport> getUsers(MapUser body){
+        List<MapReport> report = new ArrayList<>();
+        String state = body.getState();
+        ZonedDateTime from = body.getFrom();
+        ZonedDateTime to = body.getTo();
+        for (District district: districtRepository.findAll()) {
+            Integer ubigeo = district.getUbigeo();
+            Integer cases = getNumberCases(ubigeo, state, from, to);
+            if (cases != 0) {
+              report.add(new MapReport(ubigeo, cases));
             }
-            MapReport item = new MapReport();
-            item.setDepartamento(users.get(i).getDepartamento());
-            item.setProvincia(users.get(i).getProvincia());
-            item.setDistrito(users.get(i).getDistrito());
-            item.setCasos(j - i + 1);
-            report.add(item);
-            i = j;
         }
         return report;
     }
-
 
     public void notifyRegion (Integer ubigeo, String message) {
         Query query = new Query();
@@ -101,11 +119,17 @@ public class MapService {
         }
         Province province = provinceRepository.findByUbigeo(ubigeo);
         if (province != null) {
+          query.addCriteria(Criteria.where("departamento").
+                            is(province.getDepartment()));
           query.addCriteria(Criteria.where("provincia").
                             is(province.getName()));
         }
         District district = districtRepository.findByUbigeo(ubigeo);
         if (district != null) {
+          query.addCriteria(Criteria.where("departamento").
+                            is(district.getDepartment()));
+          query.addCriteria(Criteria.where("provincia").
+                            is(district.getProvince()));
           query.addCriteria(Criteria.where("distrito").
                             is(district.getName()));
         }
