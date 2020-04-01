@@ -162,3 +162,11 @@ Check HTTP status
 #### Method: GET
 #### Response
 Check HTTP status
+
+
+* Use this data to delete all app users
+
+#### Route: /test/deleteall
+#### Method: GET
+#### Response
+Check HTTP status
