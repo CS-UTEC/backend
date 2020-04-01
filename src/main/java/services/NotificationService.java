@@ -1,9 +1,14 @@
 package services;
 
 import data.entities.Notification;
-import data.models.NotificationModel;
+import data.entities.Department;
+import data.entities.Province;
+import data.entities.District;
 import data.repositories.NotificationRepository;
 import data.repositories.UserAppRepository;
+import data.repositories.DepartmentRepository;
+import data.repositories.ProvinceRepository;
+import data.repositories.DistrictRepository;
 import data.entities.UserApp;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +31,15 @@ public class NotificationService {
 
     @Autowired
     private UserAppRepository userRepository;
+
+    @Autowired
+    private DepartmentRepository departmentRepository;
+
+    @Autowired
+    private ProvinceRepository provinceRepository;
+
+    @Autowired
+    private DistrictRepository districtRepository;
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -71,50 +85,6 @@ public class NotificationService {
         }
         return repository.save(item);
     }
-
-    public void notifyDepartamento (NotificationModel input) {
-        Query query = new Query();
-        query.addCriteria(Criteria.where("departamento").is(input.getDepartamento()));
-        for (UserApp user: mongoTemplate.find(query, UserApp.class)) {
-            Notification notification = new Notification();
-            notification.setMessage(input.getMessage());
-            notification.setChecked(false);
-            notification.setTimeStamp(ZonedDateTime.now());
-            notification.setUser(user);
-            repository.save(notification);
-        } 
-    }
-
-    public void notifyProvincia (NotificationModel input) {
-        Query query = new Query();
-        query.addCriteria(Criteria.where("departamento").is(input.getDepartamento()));
-        query.addCriteria(Criteria.where("provincia").is(input.getProvincia()));
-        for (UserApp user: mongoTemplate.find(query, UserApp.class)) {
-            Notification notification = new Notification();
-            notification.setMessage(input.getMessage());
-            notification.setChecked(false);
-            notification.setTimeStamp(ZonedDateTime.now());
-            notification.setUser(user);
-            repository.save(notification);
-        } 
-    }
-
-    public void notifyDistrito (NotificationModel input) {
-        Query query = new Query();
-        query.addCriteria(Criteria.where("departamento").is(input.getDepartamento()));
-        query.addCriteria(Criteria.where("provincia").is(input.getProvincia()));
-        query.addCriteria(Criteria.where("distrito").is(input.getDistrito()));
-        for (UserApp user: mongoTemplate.find(query, UserApp.class)) {
-            Notification notification = new Notification();
-            notification.setMessage(input.getMessage());
-            notification.setChecked(false);
-            notification.setTimeStamp(ZonedDateTime.now());
-            notification.setUser(user);
-            repository.save(notification);
-        } 
-    }
-
-
 
     public void delete(String id){
         repository.delete(findOne(id));

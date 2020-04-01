@@ -96,9 +96,9 @@ Check HTTP status
 Check HTTP status
 
 
-* Use this data to report a message to a departamento
+* Use this data to report a message to a region (department, province or district)
 
-#### Route: /notification/departamento
+#### Route: /map/notify{ubigeo}
 #### Method: POST
 #### Header:
 ```js
@@ -107,7 +107,6 @@ Check HTTP status
 #### Body example
 ```js
 {
-	"departamento": "Lima",
 	"message": "Hola mundo"
 }
 ```
@@ -115,10 +114,8 @@ Check HTTP status
 Check HTTP status
 
 
-* Use this data to report a message to a provincia
-
-#### Route: /notification/provincia
-#### Method: POST
+#### Route: /map/polygon/{ubigeo}
+#### Method: GET
 #### Header:
 ```js
 "Bearer <token>"
@@ -126,30 +123,142 @@ Check HTTP status
 #### Body example
 ```js
 {
-	"departamento": "Lima",
-	"provincia": "Lima",
-	"message": "Hola mundo"
-}
-```
-#### Response
-Check HTTP status
-
-
-* Use this data to report a message to a distrito
-
-#### Route: /notification/distrito
-#### Method: POST
-#### Header:
-```js
-"Bearer <token>"
-```
-#### Body example
-```js
-{
-	"departamento": "Lima",
-	"provincia": "Lima",
-	"distrito": "Comas",
-	"message": "Hola mundo"
+    "points": [
+        {
+            "x": -76.98795461122783,
+            "y": -11.897146104712366,
+            "type": "Point",
+            "coordinates": [
+                -76.98795461122783,
+                -11.897146104712366
+            ]
+        },
+        {
+            "x": -77.02828123626566,
+            "y": -11.96067772977152,
+            "type": "Point",
+            "coordinates": [
+                -77.02828123626566,
+                -11.96067772977152
+            ]
+        },
+        {
+            "x": -77.0598203612952,
+            "y": -11.97691997978664,
+            "type": "Point",
+            "coordinates": [
+                -77.0598203612952,
+                -11.97691997978664
+            ]
+        },
+        {
+            "x": -77.07348323630801,
+            "y": -11.918367729732115,
+            "type": "Point",
+            "coordinates": [
+                -77.07348323630801,
+                -11.918367729732115
+            ]
+        },
+        {
+            "x": -77.05405986128982,
+            "y": -11.889839979705542,
+            "type": "Point",
+            "coordinates": [
+                -77.05405986128982,
+                -11.889839979705542
+            ]
+        },
+        {
+            "x": -77.025481986263,
+            "y": -11.909277979723665,
+            "type": "Point",
+            "coordinates": [
+                -77.025481986263,
+                -11.909277979723665
+            ]
+        },
+        {
+            "x": -76.98795461122783,
+            "y": -11.897146104712366,
+            "type": "Point",
+            "coordinates": [
+                -76.98795461122783,
+                -11.897146104712366
+            ]
+        }
+    ],
+    "coordinates": [
+        {
+            "type": "LineString",
+            "coordinates": [
+                {
+                    "x": -76.98795461122783,
+                    "y": -11.897146104712366,
+                    "type": "Point",
+                    "coordinates": [
+                        -76.98795461122783,
+                        -11.897146104712366
+                    ]
+                },
+                {
+                    "x": -77.02828123626566,
+                    "y": -11.96067772977152,
+                    "type": "Point",
+                    "coordinates": [
+                        -77.02828123626566,
+                        -11.96067772977152
+                    ]
+                },
+                {
+                    "x": -77.0598203612952,
+                    "y": -11.97691997978664,
+                    "type": "Point",
+                    "coordinates": [
+                        -77.0598203612952,
+                        -11.97691997978664
+                    ]
+                },
+                {
+                    "x": -77.07348323630801,
+                    "y": -11.918367729732115,
+                    "type": "Point",
+                    "coordinates": [
+                        -77.07348323630801,
+                        -11.918367729732115
+                    ]
+                },
+                {
+                    "x": -77.05405986128982,
+                    "y": -11.889839979705542,
+                    "type": "Point",
+                    "coordinates": [
+                        -77.05405986128982,
+                        -11.889839979705542
+                    ]
+                },
+                {
+                    "x": -77.025481986263,
+                    "y": -11.909277979723665,
+                    "type": "Point",
+                    "coordinates": [
+                        -77.025481986263,
+                        -11.909277979723665
+                    ]
+                },
+                {
+                    "x": -76.98795461122783,
+                    "y": -11.897146104712366,
+                    "type": "Point",
+                    "coordinates": [
+                        -76.98795461122783,
+                        -11.897146104712366
+                    ]
+                }
+            ]
+        }
+    ],
+    "type": "Polygon"
 }
 ```
 #### Response

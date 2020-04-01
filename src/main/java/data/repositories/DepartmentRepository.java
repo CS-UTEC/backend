@@ -5,4 +5,5 @@ import data.entities.Department;
 
 public interface DepartmentRepository extends MongoRepository<Department, String> {
     Department findByName(String name);
+    Department findByUbigeo(Integer ubigeo);
 }

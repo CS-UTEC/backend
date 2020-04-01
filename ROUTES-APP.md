@@ -8,10 +8,7 @@
 ```js
 {
 	"document": "12345678",
-	"type": "DNI",
-	"departamento": "Lima",
-	"provincia": "Lima",
-	"distrito": "Barranco"
+	"type": "DNI"
 }
 ```
 #### Response example

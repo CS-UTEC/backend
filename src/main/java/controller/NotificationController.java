@@ -57,22 +57,4 @@ public class NotificationController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/departamento", method = RequestMethod.POST)
-    public ResponseEntity<?> notifyDepartamento(@RequestBody NotificationModel body) {
-        notificationService.notifyDepartamento(body);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/provincia", method = RequestMethod.POST)
-    public ResponseEntity<?> notifyProvincia(@RequestBody NotificationModel body) {
-        notificationService.notifyProvincia(body);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/distrito", method = RequestMethod.POST)
-    public ResponseEntity<?> notifyDistrito(@RequestBody NotificationModel body) {
-        notificationService.notifyDistrito(body);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
 }

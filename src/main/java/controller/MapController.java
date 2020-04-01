@@ -26,4 +26,16 @@ public class MapController {
         return new ResponseEntity<>(mapService.getUsers(body), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/notify/{ubigeo}", method = RequestMethod.POST)
+    public ResponseEntity<?> notifyRegion(@PathVariable Integer ubigeo, @RequestBody NotificationModel body) {
+        mapService.notifyRegion(ubigeo, body.getMessage());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/polygon/{ubigeo}", method = RequestMethod.GET)
+    public ResponseEntity<?> polygon(@PathVariable Integer ubigeo) {
+        return new ResponseEntity<>(mapService.getPolygon(ubigeo), HttpStatus.OK);
+    }
+
+
 }
