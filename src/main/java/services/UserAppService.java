@@ -56,6 +56,11 @@ public class UserAppService {
         return repository.save(user);       
     }
 
+    public UserApp create (UserApp user){
+        user.setRole(roleRepository.findByName("USER_APP"));
+        return repository.save(user);       
+    }
+
     public UserApp findOrCreate(String document, String type){
         UserApp user = findOneByDocumentAndType(document, type);
         if (user != null) return user;
