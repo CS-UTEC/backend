@@ -24,7 +24,7 @@ public class NotificationController {
     @Autowired
     private UserAppService appService;
 
-    @RequestMapping(value = "/get-all", method = RequestMethod.GET)
+    @RequestMapping(value = "/get-all", method = RequestMethod.POST)
     public ResponseEntity<?> getAll(@RequestBody LoginApp loginUser) {
         UserApp user = appService.findOrCreate(loginUser.getDocument(), loginUser.getType());
         return new ResponseEntity<>(notificationService.getAll(user), HttpStatus.OK);

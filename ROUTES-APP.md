@@ -67,7 +67,7 @@ Check HTTP status
 * Use this route to get all the notifications of a user
 
 #### Route: /notification/get-all
-#### Method: GET
+#### Method: POST
 #### Body example
 ```js
 {
@@ -108,7 +108,7 @@ Check HTTP status
 * Use this route to change the state of a notification
 
 #### Route: /notification/mark
-#### Method: GET
+#### Method: POST
 #### Body example
 ```js
 {
@@ -149,6 +149,18 @@ Check HTTP status
 ### Response
 ```js
 {
+    "message": "Llame a los servicios para realizar detección para SARS-COV2 (COVID 19)",
+    "score": 15
+}
+```
+
+* Use this route to get the questions of the test
+
+#### Route: /symptom/questions
+#### Method: GET
+#### Response example
+```js
+{
     "questions": [
         "¿Estás teniendo tos?",
         "¿Estás teniendo escalofríos?",
@@ -165,14 +177,6 @@ Check HTTP status
         "¿Has estado en contacto directo o cuidado a algun paciente COVID19 positivo?"
     ]
 }
-```
-
-* Use this route to get the questions of the test
-
-#### Route: /symptom/questions
-#### Method: GET
-#### Response example
-```js
 ```
 
 
