@@ -35,11 +35,17 @@ public class MapController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    // @PreAuthorize("hasRole('USER_WEB')")
+    @RequestMapping(value = "/notify-region", method = RequestMethod.POST)
+    public ResponseEntity<?> notifyRegion(@RequestBody NotificationRegion body) {
+        mapService.notifyRegions(body.getUbigeos(), body.getMessage());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PreAuthorize("hasRole('USER_WEB')")
     @RequestMapping(value = "/polygon/{ubigeo}", method = RequestMethod.GET)
     public ResponseEntity<?> polygon(@PathVariable Integer ubigeo) {
         return new ResponseEntity<>(mapService.getPolygon(ubigeo), HttpStatus.OK);
     }
-
 
 }

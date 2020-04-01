@@ -174,5 +174,11 @@ public class MapService {
         return null;
     }
 
+    public void notifyRegions (ArrayList <Integer> ubigeos, String message) {
+        for (Integer ubigeo: ubigeos) {
+            notifyRegion(ubigeo, message); 
+        }
+    }
+
 }
 

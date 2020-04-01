@@ -300,6 +300,31 @@ Check HTTP status
 #### Response
 Check HTTP status
 
+* Use this route to report a message to array of ubigeos
+
+#### Route: /map/notify-region
+#### Method: POST
+#### Header:
+```js
+"Bearer <token>"
+```
+#### Body example
+```js
+{
+	"message": "Cuidado!",
+	"ubigeos": [
+		"120206",
+		"150104",
+		"150130",
+		"010101"
+	]
+}
+```
+#### Response
+Check HTTP status
+
+
+
 * Use this route to get the polygon that represents a region (department,
   province or district)
 
