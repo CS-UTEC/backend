@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.time.ZonedDateTime;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,7 +84,8 @@ public class TestDataController {
         userApp.setDepartamento(district.getDepartment());
         userApp.setProvincia(district.getProvince());
         userApp.setDistrito(district.getName());
-        
+        userApp.setTimeStamp(ZonedDateTime.now());
+
         Integer p = rand.nextInt(11);
 
         if (p > 8) {
