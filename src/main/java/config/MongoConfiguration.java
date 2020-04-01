@@ -59,8 +59,15 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
     public void initIndicesAfterStartup() {
         MongoClient mongoClient = mongoClient();
         MongoDatabase db = mongoClient.getDatabase(database);
-        MongoCollection<Document> collection = db.getCollection("ubication");
-        collection.createIndex(Indexes.geo2dsphere("location"));
+        MongoCollection<Document> ubication = db.getCollection("ubication");
+        MongoCollection<Document> department = db.getCollection("department");
+        MongoCollection<Document> province = db.getCollection("province");
+        MongoCollection<Document> district = db.getCollection("district");
+
+        ubication.createIndex(Indexes.geo2dsphere("location"));
+        department.createIndex(Indexes.geo2dsphere("geometry"));
+        province.createIndex(Indexes.geo2dsphere("geometry"));
+        district.createIndex(Indexes.geo2dsphere("geometry"));
     }
 
 }
