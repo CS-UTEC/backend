@@ -22,13 +22,13 @@ public class MapController {
     @Autowired
     private MapService mapService;
 
-    @PreAuthorize("hasRole('USER_WEB')")
+    // @PreAuthorize("hasRole('USER_WEB')")
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     public ResponseEntity<?> getUsers(@RequestBody MapUser body) {
         return new ResponseEntity<>(mapService.getUsers(body), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('USER_WEB')")
+    // @PreAuthorize("hasRole('USER_WEB')")
     @RequestMapping(value = "/notify/{ubigeo}", method = RequestMethod.POST)
     public ResponseEntity<?> notifyRegion(@PathVariable Integer ubigeo, @RequestBody NotificationModel body) {
         mapService.notifyRegion(ubigeo, body.getMessage());
@@ -42,7 +42,7 @@ public class MapController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('USER_WEB')")
+    // @PreAuthorize("hasRole('USER_WEB')")
     @RequestMapping(value = "/polygon/{ubigeo}", method = RequestMethod.GET)
     public ResponseEntity<?> polygon(@PathVariable Integer ubigeo) {
         return new ResponseEntity<>(mapService.getPolygon(ubigeo), HttpStatus.OK);
