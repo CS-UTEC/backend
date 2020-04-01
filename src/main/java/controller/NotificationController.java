@@ -8,6 +8,7 @@ import data.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -37,6 +38,7 @@ public class NotificationController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('USER_WEB')")
     @RequestMapping(value = "/report-case", method = RequestMethod.POST)
     public ResponseEntity<?> reportCase(@RequestBody LoginApp loginUser) {
         UserApp user = appService.findOneByDocumentAndType(loginUser.getDocument(), loginUser.getType());
@@ -47,6 +49,7 @@ public class NotificationController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('USER_WEB')")
     @RequestMapping(value = "/report-recover", method = RequestMethod.POST)
     public ResponseEntity<?> reportConfirmed(@RequestBody LoginApp loginUser) {
         UserApp user = appService.findOneByDocumentAndType(loginUser.getDocument(), loginUser.getType());
