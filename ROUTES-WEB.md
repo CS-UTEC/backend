@@ -27,9 +27,9 @@
 #### Body example
 ```js
 {
-	"state": "confirmed",
-	"from": 1585339334175,
-	"to": 1585339334975
+	"state": "neutral",
+	"from": 1485339334175,
+	"to": 1885339334975
 }
 ```
 
@@ -42,21 +42,35 @@
 ```js
 [
     {
-        "departamento": "Lima",
-        "provincia": "Huaras",
-        "distrito": "Comas",
+        "ubigeo": 40505,
         "casos": 2
     },
     {
-        "departamento": "Lima",
-        "provincia": "Lima",
-        "distrito": "Comas",
+        "ubigeo": 211001,
+        "casos": 2
+    },
+    {
+        "ubigeo": 211202,
         "casos": 1
     },
     {
-        "departamento": "Lima",
-        "provincia": "Lima",
-        "distrito": "Barranco",
+        "ubigeo": 210808,
+        "casos": 1
+    },
+    {
+        "ubigeo": 50613,
+        "casos": 2
+    },
+    {
+        "ubigeo": 210211,
+        "casos": 1
+    },
+    {
+        "ubigeo": 30301,
+        "casos": 1
+    },
+    {
+        "ubigeo": 221001,
         "casos": 1
     }
 ]

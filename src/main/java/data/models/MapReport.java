@@ -2,35 +2,20 @@ package data.models;
 
 public class MapReport {
 
-    private String departamento;
-    private String provincia;
-    private String distrito;
+    private Integer ubigeo;
     private Integer casos;
 
-    public MapReport() {}
-
-    public String getDepartamento() {
-        return this.departamento;
+    public MapReport(Integer ubigeo, Integer casos) {
+        this.ubigeo = ubigeo;
+        this.casos = casos;
     }
 
-    public void setDepartamento(String departamento) {
-        this.departamento = departamento;
+    public Integer getUbigeo() {
+        return this.ubigeo;
     }
 
-    public String getProvincia() {
-        return this.provincia;
-    }
-
-    public void setProvincia(String provincia) {
-        this.provincia = provincia;
-    }
-
-    public String getDistrito() {
-        return this.distrito;
-    }
-
-    public void setDistrito(String distrito) {
-        this.distrito = distrito;
+    public void setUbigeo(Integer ubigeo) {
+        this.ubigeo = ubigeo;
     }
 
     public Integer getCasos() {
