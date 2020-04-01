@@ -96,9 +96,9 @@ Check HTTP status
 Check HTTP status
 
 
-* Use this data to report a message to a region (department, province or district)
+* Use this route to report a message to a region (department, province or district)
 
-#### Route: /map/notify{ubigeo}
+#### Route: /map/notify/{ubigeo}
 #### Method: POST
 #### Header:
 ```js
@@ -113,6 +113,8 @@ Check HTTP status
 #### Response
 Check HTTP status
 
+* Use this route to get the polygon that represents a region (department,
+  province or district)
 
 #### Route: /map/polygon/{ubigeo}
 #### Method: GET
