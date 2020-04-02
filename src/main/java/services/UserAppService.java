@@ -1,17 +1,26 @@
 package services;
 
 import data.entities.UserApp;
+import data.entities.Ubication;
+import data.entities.Notification;
 import data.models.LoginApp;
 import data.repositories.RoleRepository;
 import data.repositories.UserAppRepository;
+import data.repositories.NotificationRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Calendar;
+import java.util.Date;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Service
 @Transactional
@@ -22,6 +31,12 @@ public class UserAppService {
     
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private NotificationRepository notificationRepository;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     public List<UserApp> findAll() {
         List<UserApp> items = new ArrayList<>();
@@ -73,7 +88,7 @@ public class UserAppService {
     }
 
     /*
-     * Notify each user that during the last 'days' have been
+     * Notify each user that a 'message' if during the last 'days' have been
      * near a confirmed case in a radio of 'radius' meter in a
      * interval of +- x hours
      */
@@ -82,35 +97,51 @@ public class UserAppService {
                                      Integer days,
                                      Integer interval,
                                      String message) {
-        /* Algorithm notification pseudocode
-          for (each user where user.state != "confirmed") {
+        ZonedDateTime from = ZonedDateTime.now().minusDays(days);
+        Query query = new Query();
+        query.addCriteria(Criteria.where("state").ne("confirmed"));
+        for (UserApp user: mongoTemplate.find(query, UserApp.class)) {
             Boolean notify = false;
-            for (each ubication of user of the last 'days') {
-              Query query = new Query();
-              query.addCriteria(places in a circle
-                                of radio 'radius' around
-                                ubication);
-              query.addCriteria(timeStamp
-                          .gt(ubication.timeStamp - 'interval')
-                          .lt(ubication.timeStamp + 'interval'));
-              if (mongoTemplate.findOne(query, Ubication.class)) {
-                notify = true;
-                break;
-              }
-              
+            Query query_ubication = new Query();
+            query_ubication.addCriteria(Criteria.where("timeStamp")
+                                        .gte(from));
+            query_ubication.addCriteria(Criteria.where("user.id")
+                                        .is(user.getId()));
+            for (Ubication ubication: mongoTemplate.find(query_ubication, Ubication.class)) {
+                Query query_contact = new Query();
+                query_contact.addCriteria(Criteria.where("location")
+                                          .near(ubication.getLocation())
+                                          .maxDistance(radius));
+                query_contact.addCriteria(Criteria.where("user.id")
+                                          .is(confirmedUser.getId()));
+                query_contact.addCriteria(Criteria.where("timeStamp")
+                                          .gte(ubication.getTimeStamp().minus(interval, ChronoUnit.HOURS))
+                                          .lte(ubication.getTimeStamp().plus(interval, ChronoUnit.HOURS)));
+                List <Ubication> ubications = mongoTemplate.find(query_contact, Ubication.class);
+                if (!ubications.isEmpty()) {
+                    notify = true;
+                    break;
+                }
             }
             if (notify) {
-              notification.create(User, messag)
+                Notification notification = new Notification();
+                notification.setMessage(message);
+                notification.setChecked(false);
+                notification.setTimeStamp(ZonedDateTime.now());
+                notification.setUser(user);
+                notificationRepository.save(notification);
             }
-          }
-        */
+        }
     }
 
     public UserApp setConfirmed (UserApp user) {
         user.setState("confirmed");
         repository.save(user);
+        Double radius = 10.0; // meters
+        Integer days = 7; // days
+        Integer interval = 24; // hours
         String message = "Cuidado! Has estado cerca de un caso confirmado de COVID19";
-//        notifyPossibleCases(user, 10, 7, 1, message);
+        notifyPossibleCases(user, radius, days, interval, message);
         return user;
     }
 
