@@ -37,9 +37,9 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
     @Override
     public MongoClient mongoClient() {
         return MongoClients.create(MongoClientSettings.builder()
-        .applyToClusterSettings(builder -> builder
-          .hosts(Arrays.asList(new ServerAddress(host, port))))
-        .build());
+                           .applyToClusterSettings(builder -> builder
+                               .hosts(Arrays.asList(new ServerAddress(host, port))))
+                           .build());
     }
 
     @Override
@@ -50,9 +50,9 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
     @Bean
     public CustomConversions customConversions() {
         return new MongoCustomConversions(asList(
-                new ZonedDateTimeToDocumentConverter(),
-                new DocumentToZonedDateTimeConverter()
-        ));
+                   new ZonedDateTimeToDocumentConverter(),
+                   new DocumentToZonedDateTimeConverter()
+               ));
     }
 
     @EventListener(ApplicationReadyEvent.class)
