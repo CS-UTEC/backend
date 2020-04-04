@@ -7,8 +7,9 @@
 #### Body example
 ```js
 {
-	"document": "12345678",
-	"type": "DNI"
+    "publicityId" : "464a4v7vcq6s"  // Required
+	"document": "12345678",         // Optional
+	"type": "DNI"                   // Optional
 }
 ```
 #### Response example
@@ -35,8 +36,7 @@
 #### Body example
 ```js
 {
-	"document": "12345678",
-	"type": "DNI",
+	"publicityId" : "464a4v7vcq6s"
 	"latitude": 12,
 	"longitude": 13
 }
@@ -52,8 +52,7 @@ Check HTTP status
 #### Body example
 ```js
 {
-	"document": "12345678",
-	"type": "DNI",
+	"publicityId" : "464a4v7vcq6s"
 }
 ```
 #### Response
@@ -68,8 +67,7 @@ Check HTTP status
 #### Body example
 ```js
 {
-	"document": "12345678",
-	"type": "DNI",
+	"publicityId" : "464a4v7vcq6s"
 }
 ```
 #### Response
@@ -109,8 +107,7 @@ Check HTTP status
 #### Body example
 ```js
 {
-  "document": "12345678",
-  "type": "DNI",
+  "publicityId" : "464a4v7vcq6s"
   "notificationId": "5e7ac8b37dfe8a62abffda5f",
   "checked": true
 }
@@ -125,8 +122,7 @@ Check HTTP status
 #### Body example
 ```js
 {
-  "document": "12345678",
-  "type": "DNI",
+  "publicityId" : "464a4v7vcq6s"
   "result": [
     true,
     false,
