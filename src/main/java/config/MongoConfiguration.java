@@ -63,11 +63,13 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
         MongoCollection<Document> department = db.getCollection("department");
         MongoCollection<Document> province = db.getCollection("province");
         MongoCollection<Document> district = db.getCollection("district");
+        MongoCollection<Document> userApp = db.getCollection("user_app");
 
         ubication.createIndex(Indexes.geo2dsphere("location"));
         department.createIndex(Indexes.geo2dsphere("geometry"));
         province.createIndex(Indexes.geo2dsphere("geometry"));
         district.createIndex(Indexes.geo2dsphere("geometry"));
+        userApp.createIndex(Indexes.descending("timestamp"));
     }
 
 }

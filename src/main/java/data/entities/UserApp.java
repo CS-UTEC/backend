@@ -19,10 +19,10 @@ public class UserApp implements Serializable {
     @Id
     private String id;
 
-    @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
+    @Indexed(unique = true, direction = IndexDirection.DESCENDING)
     private String publicityId;
 
-    @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
+    @Indexed(unique = true, direction = IndexDirection.DESCENDING)
     private String document;
 
     // dni
@@ -34,11 +34,17 @@ public class UserApp implements Serializable {
     // recovered
     // neutral
     private String state;
-    private String departamento;
-    private String provincia;
-    private String distrito;
 
     // next step: use a enum to store 'type' and 'state'
+
+    @Indexed(direction = IndexDirection.DESCENDING)
+    private String departamento;
+
+    @Indexed(direction = IndexDirection.DESCENDING)
+    private String provincia;
+
+    @Indexed(direction = IndexDirection.DESCENDING)
+    private String distrito;
 
     @DBRef
     private Role role;
