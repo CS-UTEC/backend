@@ -8,6 +8,7 @@ import data.repositories.UserWebRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -77,11 +78,11 @@ public class AuthService implements UserDetailsService {
     }
 
     private UserDetails buildUserForAuthWeb(UserWeb usuario, List<GrantedAuthority> authorities) {
-        return new org.springframework.security.core.userdetails.User(usuario.getUsername(), usuario.getPassword(), authorities);
+        return new User(usuario.getUsername(), usuario.getPassword(), authorities);
     }
 
     private UserDetails buildUserForAuthApp(UserApp usuario, List<GrantedAuthority> authorities) {
-        return new org.springframework.security.core.userdetails.User(usuario.getPublicityId(), usuario.getPublicityId(), authorities);
+        return new User(usuario.getPublicityId(), usuario.getPublicityId(), authorities);
     }
 
     public UserWeb save(UserWeb usuario) {
