@@ -1,7 +1,5 @@
 package data.models;
 
-import java.util.ArrayList;
-
 public class NotificationModel {
     private String message;
 

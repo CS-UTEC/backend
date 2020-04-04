@@ -5,7 +5,6 @@ import data.entities.District;
 import data.entities.Province;
 import data.entities.Department;
 import data.entities.UserApp;
-import data.models.UbicationModel;
 import data.repositories.UbicationRepository;
 import data.repositories.UserAppRepository;
 
@@ -20,7 +19,6 @@ import java.util.List;
 import org.springframework.data.geo.Box;
 import org.springframework.data.geo.Circle;
 import org.springframework.data.geo.Point;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;

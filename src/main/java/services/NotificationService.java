@@ -1,9 +1,6 @@
 package services;
 
 import data.entities.Notification;
-import data.entities.Department;
-import data.entities.Province;
-import data.entities.District;
 import data.repositories.NotificationRepository;
 import data.repositories.UserAppRepository;
 import data.repositories.DepartmentRepository;
@@ -19,7 +16,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 import java.lang.reflect.Field;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 

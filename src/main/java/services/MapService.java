@@ -1,13 +1,11 @@
 package services;
 
-import data.entities.Ubication;
 import data.entities.UserApp;
 import data.entities.Notification;
 import data.entities.Department;
 import data.entities.Province;
 import data.entities.District;
 import data.models.MapUser;
-import data.models.UbicationModel;
 import data.models.MapReport;
 import data.repositories.UserAppRepository;
 import data.repositories.UbicationRepository;
@@ -24,15 +22,10 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.geo.GeoJsonPolygon;
 
-import java.lang.reflect.Field;
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Date;
 
 @Service
 public class MapService {
@@ -117,7 +110,7 @@ public class MapService {
               report_neutral.add(new MapReport(ubigeo_str, neutral_cases));
             }
         }
-        HashMap <String, List <MapReport>> report = new HashMap();
+        HashMap <String, List <MapReport>> report = new HashMap<String, List <MapReport>>();
         report.put("confirmed", report_confirmed);
         report.put("recovered", report_recovered);
         report.put("neutral", report_neutral);

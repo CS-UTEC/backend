@@ -6,15 +6,12 @@ import data.entities.*;
 import data.models.*;
 import config.Constants;
 
-import java.util.List;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.json.JSONObject;
-import org.json.JSONException;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -29,7 +26,7 @@ public class UbicationController {
 
     @RequestMapping(value = "/interval", method = RequestMethod.GET)
     public ResponseEntity<?> interval() {
-        HashMap <String, Integer> map = new HashMap();
+        HashMap <String, Integer> map = new HashMap<String, Integer>();
         map.put("interval", Constants.INTERVAL_UBICATION_REQUEST);
         return new ResponseEntity<>(map, HttpStatus.OK);
     }

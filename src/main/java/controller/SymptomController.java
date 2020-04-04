@@ -3,7 +3,6 @@ package controller;
 import data.entities.Symptom;
 import data.entities.UserApp;
 import data.models.SymptomModel;
-import data.models.Diagnostic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
