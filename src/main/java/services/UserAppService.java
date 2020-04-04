@@ -54,9 +54,7 @@ public class UserAppService {
     public UserApp create (String document, String type){
         UserApp user = new UserApp();
         // Raise exepctions here
-        if (document == null || type == null) {
-            return null;
-        }
+        
         if (!(type.equals("DNI") ||
               type.equals("Pasaporte") ||
               type.equals("Carnet de Extranjería"))) {
