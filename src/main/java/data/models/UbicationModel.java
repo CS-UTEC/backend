@@ -1,10 +1,8 @@
 package data.models;
-import java.util.ArrayList;
 
 public class UbicationModel {
 
-    private String document;
-    private String type;
+    private String publicityId;
     private Double longitude;
     private Double latitude;
 
@@ -26,20 +24,11 @@ public class UbicationModel {
         this.longitude = longitude;
     }
 
-    public String getDocument(){
-        return this.document;
+    public String getPublicityId() {
+        return publicityId;
     }
 
-    public void setDocument(String document) {
-        this.document = document;
+    public void setPublicityId(String publicityId) {
+        this.publicityId = publicityId;
     }
-
-    public String getType() {
-        return this.type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
 }

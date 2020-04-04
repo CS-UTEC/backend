@@ -36,8 +36,7 @@ public class UbicationController {
 
     @RequestMapping(value = "/report", method = RequestMethod.POST)
     public ResponseEntity<?> report(@RequestBody UbicationModel ubication) {
-        UserApp user = appService.findOrCreate(ubication.getDocument(),
-                                               ubication.getType());
+        UserApp user = appService.findOneByPublicityId(ubication.getPublicityId());
         ubicationService.create(user, ubication.getLatitude(),
                                       ubication.getLongitude());
         return new ResponseEntity<>(HttpStatus.OK);
@@ -45,7 +44,7 @@ public class UbicationController {
 
     @RequestMapping(value = "/delete-data", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteData(@RequestBody LoginApp loginUser) {
-        UserApp user = appService.findOrCreate(loginUser.getDocument(), loginUser.getType());
+        UserApp user = appService.findOneByPublicityId(loginUser.getPublicityId());
         ubicationService.deleteData(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }

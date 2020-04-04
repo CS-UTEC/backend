@@ -7,6 +7,7 @@ public class LoginApp {
     private String departamento;
     private String provincia;
     private String distrito;
+    private String publicityId;
     
     protected LoginApp() {}
 
@@ -50,4 +51,11 @@ public class LoginApp {
         this.distrito = distrito;
     }
 
+    public String getPublicityId() {
+        return publicityId;
+    }
+
+    public void setPublicityId(String publicityId) {
+        this.publicityId = publicityId;
+    }
 }

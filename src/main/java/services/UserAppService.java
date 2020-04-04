@@ -3,7 +3,6 @@ package services;
 import data.entities.UserApp;
 import data.entities.Ubication;
 import data.entities.Notification;
-import data.models.LoginApp;
 import data.repositories.RoleRepository;
 import data.repositories.UserAppRepository;
 import data.repositories.NotificationRepository;
@@ -17,8 +16,6 @@ import org.springframework.data.mongodb.core.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Calendar;
-import java.util.Date;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -51,21 +48,26 @@ public class UserAppService {
         return repository.findById(id).get();
     }
 
-    public UserApp create (String document, String type){
+    public UserApp create (String document, String type, String publicityId){
         UserApp user = new UserApp();
-        // Raise exepctions here
-        
-        if (!(type.equals("DNI") ||
-              type.equals("Pasaporte") ||
-              type.equals("Carnet de Extranjería"))) {
+
+        if (publicityId == null) {
             return null;
         }
-        user = new UserApp();
+        
         user.setRole(roleRepository.findByName("USER_APP"));
-        user.setType(type);
-        user.setDocument(document);
         user.setState("neutral");
         user.setTimeStamp(ZonedDateTime.now());
+        user.setPublicityId(publicityId);
+
+        if (type != null && document != null) {
+            if (type.equals("DNI") ||
+                type.equals("Pasaporte") ||
+                type.equals("Carnet de Extranjería")) {
+                user.setType(type);
+                user.setDocument(document);
+            }
+        }
         return repository.save(user);       
     }
 
@@ -74,10 +76,12 @@ public class UserAppService {
         return repository.save(user);       
     }
 
-    public UserApp findOrCreate(String document, String type){
-        UserApp user = findOneByDocumentAndType(document, type);
+    public UserApp findOrCreate(String document, String type, String publicityId){
+        UserApp user = findOneByPublicityId(publicityId);
         if (user != null) return user;
-        return create(document, type);
+        user = findOneByDocumentAndType(document, type);
+        if (user != null) return user;
+        return create(document, type, publicityId);
     }
 
     public UserApp setRecovered (UserApp user) {
@@ -155,5 +159,7 @@ public class UserAppService {
         return repository.findByDocumentAndType(document, type);
     }
 
-    
+    public UserApp findOneByPublicityId(String publicityId){
+        return repository.findByPublicityId(publicityId);
+    }
 }

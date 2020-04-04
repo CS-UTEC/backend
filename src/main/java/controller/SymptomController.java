@@ -32,7 +32,7 @@ public class SymptomController {
 
     @RequestMapping(value = "/report", method = RequestMethod.POST)
     public ResponseEntity<?> create(@RequestBody SymptomModel input) {
-        UserApp user = appService.findOrCreate(input.getDocument(), input.getType());
+        UserApp user = appService.findOneByPublicityId(input.getPublicityId());
         return new ResponseEntity<>(symptomService.createAndGetDiagnostic(user, input), HttpStatus.OK);
     }
 }

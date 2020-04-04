@@ -40,10 +40,11 @@ public class AuthenticationController {
 
     @RequestMapping(value = "/app", method = RequestMethod.POST)
     public ResponseEntity<AuthToken> appLogin(@RequestBody LoginApp loginUser) {
-        UserApp user = appService.findOneByDocumentAndType(loginUser.getDocument(), loginUser.getType());
-        if (user == null) {
-            user = appService.create(loginUser.getDocument(), loginUser.getType());
-        }
+        UserApp user = appService.findOrCreate(
+            loginUser.getDocument(),
+            loginUser.getType(),
+            loginUser.getPublicityId()
+        );
         return new ResponseEntity<>(new AuthToken(user.getId().toString(), null), HttpStatus.OK);
     }
 }

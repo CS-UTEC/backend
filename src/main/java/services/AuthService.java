@@ -45,7 +45,7 @@ public class AuthService implements UserDetailsService {
         }
         
         if (isUserApp) {
-            UserApp userApp = findByDocument(username);
+            UserApp userApp = findOneByPublicityId(username);
             if(userApp == null){
                 throw new UsernameNotFoundException("Invalid document.");
             }
@@ -72,8 +72,8 @@ public class AuthService implements UserDetailsService {
         return webRepository.findByUsername(username);
     }
 
-    public UserApp findByDocument(String document) {
-        return appRepository.findByDocument(document);
+    public UserApp findOneByPublicityId(String publicityId) {
+        return appRepository.findByPublicityId(publicityId);
     }
 
     private UserDetails buildUserForAuthWeb(UserWeb usuario, List<GrantedAuthority> authorities) {
@@ -81,7 +81,7 @@ public class AuthService implements UserDetailsService {
     }
 
     private UserDetails buildUserForAuthApp(UserApp usuario, List<GrantedAuthority> authorities) {
-        return new org.springframework.security.core.userdetails.User(usuario.getDocument(), usuario.getDocument(), authorities);
+        return new org.springframework.security.core.userdetails.User(usuario.getPublicityId(), usuario.getPublicityId(), authorities);
     }
 
     public UserWeb save(UserWeb usuario) {

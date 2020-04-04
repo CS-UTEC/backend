@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 
 @Document(collection = "user_app")
 public class UserApp implements Serializable {
@@ -19,6 +18,9 @@ public class UserApp implements Serializable {
 
     @Id
     private String id;
+
+    @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
+    private String publicityId;
 
     @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
     private String document;
@@ -118,4 +120,11 @@ public class UserApp implements Serializable {
         this.timeStamp = timeStamp;
     }
 
+    public String getPublicityId() {
+        return publicityId;
+    }
+
+    public void setPublicityId(String publicityId) {
+        this.publicityId = publicityId;
+    }
 }
