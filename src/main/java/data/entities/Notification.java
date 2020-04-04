@@ -19,6 +19,8 @@ public class Notification implements Serializable {
 
     private ZonedDateTime timeStamp;
 
+    private String title;
+
     private String message;
 
     private Boolean checked;
@@ -27,7 +29,9 @@ public class Notification implements Serializable {
     @JsonIgnore
     private UserApp user;
 
-    public Notification() {}
+    public Notification() {
+        this.title = "Some title";
+    }
 
     public String getId() {
         return id;
@@ -67,5 +71,13 @@ public class Notification implements Serializable {
 
     public void setUser(UserApp user) {
         this.user = user;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return this.title;
     }
 }
