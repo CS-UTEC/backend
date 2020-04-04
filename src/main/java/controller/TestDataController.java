@@ -52,6 +52,7 @@ public class TestDataController {
         Random rand = new Random();
         UserApp userApp = new UserApp();
         userApp.setDocument(document);
+        userApp.setPublicityId(document);
         userApp.setType("DNI");
         userApp.setDepartamento(district.getDepartment());
         userApp.setProvincia(district.getProvince());
@@ -74,6 +75,8 @@ public class TestDataController {
 
     @RequestMapping(value = "/gen/{nUsers}", method = RequestMethod.GET)
     public String usersGenerator(@PathVariable Long nUsers) {
+        if (nUsers > 200) return "Overload";
+
         District district = null;
         Random rand = new Random();
         int cod;
