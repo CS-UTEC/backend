@@ -30,7 +30,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private JwtTokenUtil jwtTokenUtil;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
+    protected void doFilterInternal(HttpServletRequest req, 
+                                    HttpServletResponse res, 
+                                    FilterChain chain) throws 
+                                    IOException, ServletException {
         String header = req.getHeader(HEADER_STRING);
         String username = null;
         String role = null;
@@ -50,20 +53,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         } else {
             logger.warn("couldn't find bearer string, will ignore the header");
         }
+
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-
             UserDetails userDetails = userDetailsService.loadUserByUsername(role + username);
-
             if (jwtTokenUtil.validateToken(authToken, userDetails)) {
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, Arrays.asList(new SimpleGrantedAuthority(role)));
+                UsernamePasswordAuthenticationToken authentication = 
+                  new UsernamePasswordAuthenticationToken(userDetails,
+                                                          null,
+                                                          Arrays.asList(
+                                                            new SimpleGrantedAuthority(role)
+                                                          ));
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
                 logger.info("authenticated user " + username + ", setting security context");
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-            }else{
+            } else {
                 logger.warn("invalid token "+username);
             }
         }
-
         chain.doFilter(req, res);
     }
 }

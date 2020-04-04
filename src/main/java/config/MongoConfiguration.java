@@ -37,8 +37,8 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
     @Override
     public MongoClient mongoClient() {
         return MongoClients.create(MongoClientSettings.builder()
-        .applyToClusterSettings(builder -> 
-            builder.hosts(Arrays.asList(new ServerAddress(host, port))))
+        .applyToClusterSettings(builder -> builder
+          .hosts(Arrays.asList(new ServerAddress(host, port))))
         .build());
     }
 
@@ -64,7 +64,6 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
         MongoCollection<Document> province = db.getCollection("province");
         MongoCollection<Document> district = db.getCollection("district");
         MongoCollection<Document> userApp = db.getCollection("user_app");
-
         ubication.createIndex(Indexes.geo2dsphere("location"));
         department.createIndex(Indexes.geo2dsphere("geometry"));
         province.createIndex(Indexes.geo2dsphere("geometry"));

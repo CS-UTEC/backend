@@ -18,8 +18,9 @@ public class ZonedDateTimeToDocumentConverter implements Converter<ZonedDateTime
 
     @Override
     public Document convert(@Nullable ZonedDateTime zonedDateTime) {
-        if (zonedDateTime == null) return null;
-
+        if (zonedDateTime == null) {
+          return null;
+        }
         Document document = new Document();
         document.put(DATE_TIME, Date.from(zonedDateTime.toInstant()));
         document.put(ZONE, zonedDateTime.getZone().getId());

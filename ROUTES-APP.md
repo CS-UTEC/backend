@@ -7,7 +7,7 @@
 #### Body example
 ```js
 {
-    "publicityId" : "464a4v7vcq6s"  // Required
+  "publicityId" : "464a4v7vcq6s"  // Required
 	"document": "12345678",         // Optional
 	"type": "DNI"                   // Optional
 }

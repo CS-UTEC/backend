@@ -19,12 +19,12 @@ public class DocumentToZonedDateTimeConverter implements Converter<Document, Zon
 
     @Override
     public ZonedDateTime convert(@Nullable Document document) {
-        if (document == null) return null;
-
+        if (document == null) {
+          return null;
+        }
         Date dateTime = document.getDate(DATE_TIME);
         String zoneId = document.getString(ZONE);
         ZoneId zone = ZoneId.of(zoneId);
-
         return ZonedDateTime.ofInstant(dateTime.toInstant(), zone);
     }
 }

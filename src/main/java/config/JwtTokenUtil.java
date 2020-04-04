@@ -41,9 +41,9 @@ public class JwtTokenUtil implements Serializable {
 
     private Claims getAllClaimsFromToken(String token) {
         return Jwts.parser()
-                .setSigningKey(SIGNING_KEY)
-                .parseClaimsJws(token)
-                .getBody();
+                   .setSigningKey(SIGNING_KEY)
+                   .parseClaimsJws(token)
+                   .getBody();
     }
 
     private Boolean isTokenExpired(String token) {
@@ -64,19 +64,19 @@ public class JwtTokenUtil implements Serializable {
         claims.put("role", role);
 
         return Jwts.builder()
-                .setClaims(claims)
-                .setIssuer("http://devglan.com")
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_VALIDITY_SECONDS*1000))
-                .signWith(SignatureAlgorithm.HS256, SIGNING_KEY)
-                .compact();
+                   .setClaims(claims)
+                   .setIssuer("http://devglan.com")
+                   .setIssuedAt(new Date(System.currentTimeMillis()))
+                   .setExpiration(new Date(System.currentTimeMillis() + 
+                                  ACCESS_TOKEN_VALIDITY_SECONDS*1000))
+                   .signWith(SignatureAlgorithm.HS256, SIGNING_KEY)
+                   .compact();
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
-        return (
-                username.equals(userDetails.getUsername())
-                        && !isTokenExpired(token));
+        return username.equals(userDetails.getUsername()) && 
+               !isTokenExpired(token);
     }
 
 }
