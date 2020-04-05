@@ -57,6 +57,7 @@ public class TestDataController {
         userApp.setDepartamento(district.getDepartment());
         userApp.setProvincia(district.getProvince());
         userApp.setDistrito(district.getName());
+        userApp.setUbigeo(district.getUbigeo());
         userApp.setTimeStamp(ZonedDateTime.now());
 
         Integer p = rand.nextInt(11);

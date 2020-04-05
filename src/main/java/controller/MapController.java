@@ -48,4 +48,11 @@ public class MapController {
         return new ResponseEntity<>(mapService.getPolygon(ubigeo), HttpStatus.OK);
     }
 
+    // @PreAuthorize("hasRole('USER_WEB')")
+    @RequestMapping(value = "/stadistics", method = RequestMethod.GET)
+    public ResponseEntity<?> stadistics() {
+        return new ResponseEntity<>(mapService.getStadistics(), HttpStatus.OK);
+    }
+
+
 }

@@ -79,6 +79,7 @@ public class UserAppService {
 
     public UserApp setRecovered(UserApp user) {
         user.setState("recovered");
+        user.setTimeStamp(ZonedDateTime.now());
         createNotification(user, "Estado", "Caso recuperado");
         return appRepository.save(user);
     }
@@ -138,6 +139,7 @@ public class UserAppService {
 
     public UserApp setConfirmed(UserApp user) {
         user.setState("confirmed");
+        user.setTimeStamp(ZonedDateTime.now());
         appRepository.save(user);
         Double radius = 10.0; // meters
         Integer days = 7; // days

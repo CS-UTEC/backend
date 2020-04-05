@@ -69,12 +69,12 @@ public class UbicationService {
         return null;
     }
 
-    public String getDepartamento (Double latitude, Double longitude) {
+    public Department getDepartamento (Double latitude, Double longitude) {
         Query query = new Query();
         query.addCriteria(Criteria.where("geometry").intersects(new GeoJsonPoint(longitude, latitude)));
         List <Department> departments = mongoTemplate.find(query, Department.class);
         for (Department department: departments) {
-            return department.getName();
+            return department;
         }
         return null;
     }
@@ -86,7 +86,9 @@ public class UbicationService {
         ubication.setLocation(longitude, latitude);
         user.setDistrito(getDistrito(latitude, longitude));
         user.setProvincia(getProvincia(latitude, longitude));
-        user.setDepartamento(getDepartamento(latitude, longitude));
+        Department department = getDepartamento(latitude, longitude);
+        user.setDepartamento(department.getName());
+        user.setUbigeo(department.getUbigeo());
         user.setTimeStamp(ZonedDateTime.now());
         userRepository.save(user);
         ubication.setUser(user);

@@ -7,6 +7,7 @@ import data.entities.Province;
 import data.entities.District;
 import data.models.MapUser;
 import data.models.MapReport;
+import data.models.MapStadistics;
 import data.repositories.UserAppRepository;
 import data.repositories.UbicationRepository;
 import data.repositories.NotificationRepository;
@@ -26,6 +27,8 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
+import java.util.*;
+import org.javatuples.*;
 
 @Service
 public class MapService {
@@ -171,6 +174,38 @@ public class MapService {
         for (Integer ubigeo: ubigeos) {
             notifyRegion(ubigeo, message); 
         }
+    }
+
+    public HashMap <?, ?> getStadistics () {
+        HashMap <Quartet <Integer, Integer, Integer, String>, 
+                ArrayList <Integer>> result = new HashMap();
+        for (UserApp user: appRepository.findAll()) {
+            Integer day = user.getTimeStamp().getDayOfMonth();
+            Integer month = user.getTimeStamp().getMonthValue();
+            Integer year = user.getTimeStamp().getYear();
+            String ubigeo = user.getUbigeo();
+            if (ubigeo == null) continue;
+            Quartet <Integer, Integer, Integer, String> quartet = new
+              Quartet <Integer, Integer, Integer, String> (day, month, year, ubigeo);
+            ArrayList <Integer> value = new ArrayList();
+            value.add(0);
+            value.add(0);
+            value.add(0);
+            if (result.get(quartet) != null) {
+              value = result.get(quartet);
+            }
+            if (user.getState().equals("neutral")) {
+              value.set(0, value.get(0) + 1);
+            }
+            if (user.getState().equals("confirmed")) {
+              value.set(1, value.get(1) + 1);
+            }
+            if (user.getState().equals("recovered")) {
+              value.set(2, value.get(2) + 1);
+            }
+            result.put(quartet, value);
+        }
+        return result;
     }
 
 }
