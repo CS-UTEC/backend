@@ -25,14 +25,8 @@ public class UserApp implements Serializable {
     @Indexed(unique = true, direction = IndexDirection.DESCENDING)
     private String document;
 
-    // dni
-    // pasaporte
-    // carnet de extranjería
     private String type;
 
-    // confirmed
-    // recovered
-    // neutral
     private String state;
 
     // next step: use a enum to store 'type' and 'state'
@@ -51,6 +45,8 @@ public class UserApp implements Serializable {
 
     @JsonIgnore
     private ZonedDateTime timeStamp;
+
+    private String ubigeo;
 
     public UserApp() {}
 
@@ -132,5 +128,13 @@ public class UserApp implements Serializable {
 
     public void setPublicityId(String publicityId) {
         this.publicityId = publicityId;
+    }
+
+    public String getUbigeo() {
+        return this.ubigeo;
+    }
+
+    public void setUbigeo(String ubigeo) {
+        this.ubigeo = ubigeo;
     }
 }

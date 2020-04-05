@@ -12,12 +12,7 @@
 }
 ```
 #### Response example
-```js
-{
-    "userId": 1,
-    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBjcyIsInJvbGUiOiJVU0VSX1dFQiIsImlzcyI6Imh0dHA6Ly9kZXZnbGFuLmNvbSIsImlhdCI6MTU4NTA1MjU2MCwiZXhwIjoxNTg1MDcwNTYwfQ.gTJ2ovcGXKTjTQxBjZC7mVttBeQ4u4roEQKdRsyKYvk"
-}
-```
+Check http status
 
 * Use this route to get the list of user. It just returns the ubigeos with cases >= 1.
 
@@ -261,8 +256,7 @@
 #### Body example
 ```js
 {
-	"document": "12345678",
-	"type": "DNI",
+  "publicityId" : "464a4v7vcq6s"
 }
 ```
 #### Response
@@ -275,8 +269,7 @@ Check HTTP status
 #### Body example
 ```js
 {
-	"document": "12345678",
-	"type": "DNI",
+  "publicityId" : "464a4v7vcq6s"
 }
 ```
 #### Response

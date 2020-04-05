@@ -31,20 +31,21 @@ public class AuthenticationController {
     private UserAppService appService;
 
     @RequestMapping(value = "/web", method = RequestMethod.POST)
-    public ResponseEntity<AuthToken> webLogin(@RequestBody LoginWeb loginUser) throws AuthenticationException {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUser.getUsername(), loginUser.getPassword()));
+    public ResponseEntity<AuthToken> webLogin(@RequestBody LoginWeb loginUser) 
+                                     throws AuthenticationException {
+        authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(loginUser.getUsername(), 
+                                                    loginUser.getPassword()));
         final UserWeb user = webService.findOneByUsername(loginUser.getUsername());
         final String token = jwtTokenUtil.generateTokenForWeb(user);
         return new ResponseEntity<>(new AuthToken(user.getId().toString(), token), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/app", method = RequestMethod.POST)
-    public ResponseEntity<AuthToken> appLogin(@RequestBody LoginApp loginUser) {
-        UserApp user = appService.findOrCreate(
-            loginUser.getDocument(),
-            loginUser.getType(),
-            loginUser.getPublicityId()
-        );
-        return new ResponseEntity<>(new AuthToken(user.getId().toString(), null), HttpStatus.OK);
+    public ResponseEntity<?> appLogin(@RequestBody LoginApp loginUser) {
+        UserApp user = appService.findOrCreate(loginUser.getDocument(),
+                                               loginUser.getType(),
+                                               loginUser.getPublicityId());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

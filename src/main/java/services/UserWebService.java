@@ -16,38 +16,37 @@ import java.util.List;
 public class UserWebService {
 
     @Autowired
-    private UserWebRepository repository;
+    private UserWebRepository webRepository;
 
     @Autowired
     private RoleRepository roleRepository;
 
     public List<UserWeb> findAll(){
         List<UserWeb> items = new ArrayList<>();
-
-        for (UserWeb item :repository.findAll()) {
+        for (UserWeb item: webRepository.findAll()) {
             items.add(item);
         }
         return items;
     }
 
     public UserWeb findOne(String id){
-        return repository.findById(id).get();
+        return webRepository.findById(id).get();
     }
 
     public UserWeb create(UserWeb item){
         item.setRole(roleRepository.findByName("USER_WEB"));
-        return repository.save(item);
+        return webRepository.save(item);
     }
 
     public UserWeb update(UserWeb item){
-        return repository.save(item);
+        return webRepository.save(item);
     }
 
     public void delete(String id){
-        repository.delete(findOne(id));
+        webRepository.delete(findOne(id));
     }
 
     public UserWeb findOneByUsername(String username){
-        return repository.findByUsername(username);
+        return webRepository.findByUsername(username);
     }
 }

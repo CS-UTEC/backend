@@ -24,7 +24,7 @@ import java.time.temporal.ChronoUnit;
 public class UserAppService {
 
     @Autowired
-    private UserAppRepository repository;
+    private UserAppRepository appRepository;
     
     @Autowired
     private RoleRepository roleRepository;
@@ -37,18 +37,13 @@ public class UserAppService {
 
     public List<UserApp> findAll() {
         List<UserApp> items = new ArrayList<>();
-
-        for (UserApp item :repository.findAll()) {
+        for (UserApp item: appRepository.findAll()) {
             items.add(item);
         }
         return items;
     }
 
-    public UserApp findOne(String id){
-        return repository.findById(id).get();
-    }
-
-    public UserApp create (String document, String type, String publicityId){
+    public UserApp create(String document, String type, String publicityId){
         UserApp user = new UserApp();
 
         if (publicityId == null) {
@@ -68,25 +63,24 @@ public class UserAppService {
                 user.setDocument(document);
             }
         }
-        return repository.save(user);       
+        return appRepository.save(user);       
     }
 
-    public UserApp create (UserApp user){
+    public UserApp create(UserApp user){
         user.setRole(roleRepository.findByName("USER_APP"));
-        return repository.save(user);       
+        return appRepository.save(user);       
     }
 
     public UserApp findOrCreate(String document, String type, String publicityId){
         UserApp user = findOneByPublicityId(publicityId);
         if (user != null) return user;
-        user = findOneByDocumentAndType(document, type);
-        if (user != null) return user;
         return create(document, type, publicityId);
     }
 
-    public UserApp setRecovered (UserApp user) {
+    public UserApp setRecovered(UserApp user) {
         user.setState("recovered");
-        return repository.save(user);
+        createNotification(user, "Estado", "Caso recuperado");
+        return appRepository.save(user);
     }
 
     /*
@@ -94,11 +88,12 @@ public class UserAppService {
      * near a confirmed case in a radio of 'radius' meter in a
      * interval of +- x hours
      */
-    public void notifyPossibleCases (UserApp confirmedUser, 
-                                     Double radius,
-                                     Integer days,
-                                     Integer interval,
-                                     String message) {
+    public void notifyPossibleCases(UserApp confirmedUser, 
+                                    Double radius,
+                                    Integer days,
+                                    Integer interval,
+                                    String title,
+                                    String message) {
         ZonedDateTime from = ZonedDateTime.now().minusDays(days);
         Query query = new Query();
         query.addCriteria(Criteria.where("state").ne("confirmed"));
@@ -126,40 +121,43 @@ public class UserAppService {
                 }
             }
             if (notify) {
-                Notification notification = new Notification();
-                notification.setMessage(message);
-                notification.setChecked(false);
-                notification.setTimeStamp(ZonedDateTime.now());
-                notification.setUser(user);
-                notificationRepository.save(notification);
+              createNotification(user, title, message);
             }
         }
     }
 
-    public UserApp setConfirmed (UserApp user) {
+    public void createNotification(UserApp user, String title, String message) {
+        Notification notification = new Notification();
+        notification.setMessage(message);
+        notification.setChecked(false);
+        notification.setTimeStamp(ZonedDateTime.now());
+        notification.setUser(user);
+        notification.setTitle("notification");
+        notificationRepository.save(notification);
+    }
+
+    public UserApp setConfirmed(UserApp user) {
         user.setState("confirmed");
-        repository.save(user);
+        appRepository.save(user);
         Double radius = 10.0; // meters
         Integer days = 7; // days
         Integer interval = 24; // hours
-        String message = "Cuidado! Has estado cerca de un caso confirmado de COVID19";
-        notifyPossibleCases(user, radius, days, interval, message);
+        String title = "Cuidado!";
+        String message = "Has estado cerca de un caso confirmado de COVID19";
+        notifyPossibleCases(user, radius, days, interval, title, message);
+        createNotification(user, "Estado", "Caso confirmado");
         return user;
     }
 
-    public UserApp update(UserApp item){
-        return repository.save(item);
+    public UserApp update(UserApp item) {
+        return appRepository.save(item);
     }
 
     public void delete(String id){
-        repository.delete(findOne(id));
-    }
-
-    public UserApp findOneByDocumentAndType(String document, String type){
-        return repository.findByDocumentAndType(document, type);
+        appRepository.delete(findOneByPublicityId(id));
     }
 
     public UserApp findOneByPublicityId(String publicityId){
-        return repository.findByPublicityId(publicityId);
+        return appRepository.findByPublicityId(publicityId);
     }
 }
